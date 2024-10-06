@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stadium/pages/log_in_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:stadium/pages/auth/log_in_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,8 +17,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(),
       ),
-      home: const LogInPage(),
+      home: LogInPage(),
     );
   }
 }

@@ -10,10 +10,15 @@ class TextClickable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: function(),
+      onPressed: () {
+        function();
+      },
       child: Text(
         text,
-        style: TextStyle(fontSize: 16, color: color ?? Colors.black),
+        style: TextStyle(
+            fontSize: 14,
+            color: color ?? Colors.black,
+            fontWeight: FontWeight.bold),
       ),
     );
   }

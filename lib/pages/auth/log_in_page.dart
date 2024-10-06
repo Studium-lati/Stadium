@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:stadium/helper/const.dart';
+import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/auth/register_pages.dart';
 import 'package:stadium/widgets/icon_log_in.dart';
 import 'package:stadium/widgets/main_button_widget.dart';
 import 'package:stadium/widgets/text_clickable.dart';
 import 'package:stadium/widgets/text_form_widget.dart';
 
-class LogInPage extends StatefulWidget {
-  const LogInPage({super.key});
+class LogInPage extends StatelessWidget {
+  LogInPage({super.key});
 
-  @override
-  State<LogInPage> createState() => _LogInPageState();
-}
-
-class _LogInPageState extends State<LogInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -32,8 +32,11 @@ class _LogInPageState extends State<LogInPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(
-                      height: 60,
+                    const SizedBox(height: 20),
+                    Image.asset(
+                      'assets/logo_remove.png',
+                      height: getScreenSize(context).height * 0.2,
+                      width: getScreenSize(context).width * 0.2,
                     ),
                     Text(
                       'Login here',
@@ -44,17 +47,17 @@ class _LogInPageState extends State<LogInPage> {
                         color: primaryColor,
                       ),
                     ),
-                    const SizedBox(height: 26),
-                    const Text(
-                      'Welcome back you\'ve\n been missed!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    const SizedBox(height: 60),
+                    // const SizedBox(height: 26),
+                    // const Text(
+                    //   'Welcome back you\'ve\n been missed!',
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(
+                    //     fontSize: 20,
+                    //     color: Colors.black,
+                    //     fontWeight: FontWeight.w700,
+                    //   ),
+                    // ),
+                    const SizedBox(height: 40),
                     TextForm(controller: _emailController, labelText: "Email"),
                     const SizedBox(height: 29),
                     TextForm(
@@ -62,7 +65,7 @@ class _LogInPageState extends State<LogInPage> {
                       labelText: "Password",
                       obscure: true,
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 10),
                     Align(
                         alignment: Alignment.centerRight,
                         child: TextClickable(
@@ -70,17 +73,19 @@ class _LogInPageState extends State<LogInPage> {
                           function: () {},
                           color: primaryColor,
                         )),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 25),
+
                     const Mainbutton(text: 'Sign in'),
+                    
                     const SizedBox(height: 40),
-                    const Text(
-                      'Create new account',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w700),
-                    ),
+                    TextClickable(
+                        text: 'Create new account',
+                        function: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RegisterPages()));
+                        }),
                     const SizedBox(height: 39),
                     Text(
                       'Or continue with',
