@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/pages/auth/register_pages.dart';
@@ -8,14 +7,21 @@ import 'package:stadium/widgets/main_button_widget.dart';
 import 'package:stadium/widgets/text_clickable.dart';
 import 'package:stadium/widgets/text_form_widget.dart';
 
-class LogInPage extends StatelessWidget {
+class LogInPage extends StatefulWidget {
   LogInPage({super.key});
 
+  @override
+  State<LogInPage> createState() => _LogInPageState();
+}
+
+class _LogInPageState extends State<LogInPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +64,43 @@ class LogInPage extends StatelessWidget {
                     //   ),
                     // ),
                     const SizedBox(height: 40),
-                    TextForm(controller: _emailController, labelText: "Email"),
+                    TextForm(
+                        controller: _emailController,
+                        labelText: "Email or Phone",
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Email or Phone is required';
+                          }
+
+                          return null;
+                        }),
                     const SizedBox(height: 29),
                     TextForm(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (value.length < 6) {
+                          return 'Password must be at least 6 characters';
+                        }
+
+                        return null;
+                      },
                       controller: _passwordController,
                       labelText: "Password",
-                      obscure: true,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _obscureText
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                      ),
+                      obscure: _obscureText,
                     ),
                     const SizedBox(height: 10),
                     Align(
@@ -76,7 +113,7 @@ class LogInPage extends StatelessWidget {
                     const SizedBox(height: 25),
 
                     const Mainbutton(text: 'Sign in'),
-                    
+
                     const SizedBox(height: 40),
                     TextClickable(
                         text: 'Create new account',
