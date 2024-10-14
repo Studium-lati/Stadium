@@ -110,10 +110,8 @@ class _LogInPageState extends State<LogInPage> {
                           function: () {},
                           color: primaryColor,
                         )),
-                    const SizedBox(height: 25),
-
-                    const Mainbutton(text: 'Sign in'),
-
+                    const SizedBox(height: 30),
+                     Mainbutton(text: 'Sign in',ontap:(){},),
                     const SizedBox(height: 40),
                     TextClickable(
                         text: 'Create new account',
