@@ -147,7 +147,7 @@ class _RegisterPagesState extends State<RegisterPages> {
                   SizedBox(
                     height: 40,
                   ),
-                  Mainbutton(text: "Sign up"),
+                  Mainbutton(text: "Sign up",ontap: (){},),
                   SizedBox(
                     height: 20,
                   ),
