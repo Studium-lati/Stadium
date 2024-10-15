@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stadium/helper/const.dart';
-import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/pages/onbording/onboarding%202.dart';
-import 'package:stadium/widgets/onbordings.dart';
+import 'package:stadium/widgets/cards/onbordings.dart';
 
 class Onbording1 extends StatefulWidget {
   const Onbording1({super.key});

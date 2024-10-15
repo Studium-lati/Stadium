@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stadium/widgets/stduim_detalies.dart';
+import 'package:stadium/widgets/cards/stduim_detalies.dart';
 
 class StadiumDetails extends StatefulWidget {
   const StadiumDetails({super.key});

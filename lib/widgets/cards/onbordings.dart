@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/widgets/main_button_widget.dart';
+import 'package:stadium/widgets/clickables/main_button_widget.dart';
 
 class Onbordings extends StatelessWidget {
-  const Onbordings( {super.key, required this.tite, required this.descrpation, required this.bouttentext, this.paddingbutten =const EdgeInsets.symmetric(vertical: 10.0),required this.imgpath, required this.value, required this.ontap});
-    final String tite;
-    final String descrpation;
-    final String bouttentext;
-    final String imgpath; //imge path
-    final double value;//value of LinearProgressIndicator
-    final EdgeInsetsGeometry paddingbutten;
-    final Function ontap;
-
-
+  const Onbordings(
+      {super.key,
+      required this.tite,
+      required this.descrpation,
+      required this.bouttentext,
+      this.paddingbutten = const EdgeInsets.symmetric(vertical: 10.0),
+      required this.imgpath,
+      required this.value,
+      required this.ontap});
+  final String tite;
+  final String descrpation;
+  final String bouttentext;
+  final String imgpath; //imge path
+  final double value; //value of LinearProgressIndicator
+  final EdgeInsetsGeometry paddingbutten;
+  final Function ontap;
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -29,16 +32,14 @@ class Onbordings extends StatelessWidget {
             children: [
               SizedBox(height: 20),
               Image.asset(
-              imgpath  , 
+                imgpath,
                 height: getScreenSize(context).height * 0.4,
                 fit: BoxFit.cover,
               ),
               SizedBox(height: 10),
 
               Text(
-                                textAlign: TextAlign.center,
-
-                
+                textAlign: TextAlign.center,
                 tite,
                 style: TextStyle(
                   fontSize: 24,
@@ -50,7 +51,7 @@ class Onbordings extends StatelessWidget {
 
               // Subtitle Text
               Text(
-               descrpation,
+                descrpation,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -58,12 +59,15 @@ class Onbordings extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 42),
-                                 Flexible(child: Container(
-                              
-                                  
-                                  child: Mainbutton(text: bouttentext,paddingbutten: paddingbutten,ontap: (){
-                                    ontap();
-                                  },))),
+              Flexible(
+                  child: Container(
+                      child: Mainbutton(
+                text: bouttentext,
+                paddingbutten: paddingbutten,
+                ontap: () {
+                  ontap();
+                },
+              ))),
 
               SizedBox(height: 42),
 
@@ -76,13 +80,10 @@ class Onbordings extends StatelessWidget {
                   color: Colors.green,
                 ),
               ),
-
             ],
           ),
         ),
-        
       ),
-
     );
   }
 }

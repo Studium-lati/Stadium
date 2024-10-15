@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/pages/auth/register_pages.dart';
-import 'package:stadium/widgets/icon_log_in.dart';
-import 'package:stadium/widgets/main_button_widget.dart';
-import 'package:stadium/widgets/text_clickable.dart';
-import 'package:stadium/widgets/text_form_widget.dart';
+import 'package:stadium/widgets/clickables/icon_log_in.dart';
+import 'package:stadium/widgets/clickables/main_button_widget.dart';
+import 'package:stadium/widgets/clickables/text_clickable.dart';
+import 'package:stadium/widgets/inputs/text_form_widget.dart';
 
 class LogInPage extends StatefulWidget {
   LogInPage({super.key});
