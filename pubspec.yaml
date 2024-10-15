@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^6.2.1
   flutter_native_splash: ^2.4.1
+  font_awesome_flutter: ^10.7.0
+  iconly: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -75,7 +77,6 @@ flutter:
   assets:
     - assets/
     - assets/icons/
-    - assets/onbording/
 
 
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+import 'package:stadium/helper/function_helper.dart';
 
 class CustomStadiumCard extends StatelessWidget {
   final String imageUrl;
@@ -18,8 +20,9 @@ class CustomStadiumCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200,
-      margin: EdgeInsets.only(right: 16),
+      width: getScreenSize(context).width * 0.6,
+      height: getScreenSize(context).height * 0.7,
+      margin: EdgeInsets.only(right: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -40,11 +43,17 @@ class CustomStadiumCard extends StatelessWidget {
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
             ),
-            child: Image.asset(
-              imageUrl,
-              height: 120,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 3.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  imageUrl,
+                  height: getScreenSize(context).height * 0.2,
+                  width: getScreenSize(context).width * 0.7,
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           Padding(
@@ -62,38 +71,46 @@ class CustomStadiumCard extends StatelessWidget {
                 SizedBox(height: 4),
                 Row(
                   children: [
-                    Icon(Icons.location_on, color: Colors.grey, size: 14),
-                    SizedBox(width: 4),
+                    Icon(IconlyLight.location, color: Colors.grey, size: 16),
+                    SizedBox(width: 8),
                     Text(
                       location,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.star, color: Colors.yellow, size: 16),
-                        SizedBox(width: 4),
+                        Icon(IconlyBold.star,
+                            color: Color(0xFFFFD233), size: 22),
+                        SizedBox(width: 6),
                         Text(
                           rating.toString(),
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: getScreenSize(context).width * 0.23,
+                        ),
+                        Text(
+                          '\$${pricePerHour.toStringAsFixed(0)}/Hour',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
                       ],
-                    ),
-                    Text(
-                      '\$${pricePerHour.toStringAsFixed(0)}/Hour',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
                     ),
                   ],
                 ),

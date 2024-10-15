@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stadium/helper/const.dart';
+import 'package:stadium/helper/function_helper.dart';
 
 class StadiumDetailsCard extends StatelessWidget {
   final String stadiumName;
@@ -19,16 +20,13 @@ class StadiumDetailsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-      
           Container(
-            width: size.width,
-            height: size.height * 0.5,
+            width: getScreenSize(context).width,
+            height: getScreenSize(context).height * 0.5,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(40)),
               image: DecorationImage(
@@ -37,7 +35,6 @@ class StadiumDetailsCard extends StatelessWidget {
               ),
             ),
           ),
-        
           Positioned(
             top: 40,
             left: 20,
@@ -58,17 +55,16 @@ class StadiumDetailsCard extends StatelessWidget {
               backgroundColor: Colors.white,
               child: IconButton(
                 icon: Icon(Icons.bookmark),
-                onPressed: () {
-                },
+                onPressed: () {},
               ),
             ),
           ),
           Align(
             alignment: Alignment.topCenter,
             child: Container(
-              width: size.width,
+              width: getScreenSize(context).width,
               padding: EdgeInsets.all(20),
-              margin: EdgeInsets.only(top: size.height * 0.4),
+              margin: EdgeInsets.only(top: getScreenSize(context).height * 0.4),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(40)),
@@ -98,52 +94,47 @@ class StadiumDetailsCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                   SizedBox(height: 30),
-                                    Text("Overview",  style: TextStyle(
+                  SizedBox(height: 30),
+                  Text(
+                    "Overview",
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.green,),),
+                      color: Colors.green,
+                    ),
+                  ),
                   SizedBox(height: 15),
                   Row(
                     children: [
                       Row(
                         children: [
-                          ElevatedButton(onPressed: () {
-                            
-                          },
-                          
-                             style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal:
+                                      getScreenSize(context).width * 0.1),
                             ),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.1),
-                          ),
-                          
                             child: Icon(Icons.location_on, color: Colors.white),
-                            
-                            
-                            
-                            ),
+                          ),
                         ],
                       ),
-                                            SizedBox(width: 25),
-
-                  
-            
+                      SizedBox(width: 25),
                       Icon(Icons.star, color: Colors.yellow),
-                    
                       SizedBox(width: 5),
                       Text(
-                        rating.toString()+"out of 5.0",
-                        style: TextStyle(fontSize: 12, color: Colors.black,
-                        fontWeight: FontWeight.bold),
+                        rating.toString() + "out of 5.0",
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-                                   
-
                   SizedBox(height: 10),
                   Text(
                     'Description',
@@ -160,18 +151,16 @@ class StadiumDetailsCard extends StatelessWidget {
                   ),
                   SizedBox(height: 40),
                   Center(
-                    
                     child: ElevatedButton(
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                         padding: EdgeInsets.symmetric(
-                            vertical: 20, horizontal: size.width * 0.33),
-                          
+                            vertical: 20,
+                            horizontal: getScreenSize(context).width * 0.33),
                       ),
                       child: Text(
                         'Book Now',

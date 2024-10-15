@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stadium/helper/const.dart';
 import 'package:stadium/pages/onbording/onboarding3.dart';
-import 'package:stadium/widgets/main_button_widget.dart';
-import 'package:stadium/widgets/onbordings.dart';
+import 'package:stadium/widgets/cards/onbordings.dart';
 
 class onboarding2 extends StatelessWidget {
   const onboarding2({super.key});
