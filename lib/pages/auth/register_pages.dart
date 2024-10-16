@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/pages/auth/log_in_page.dart';
+import 'package:stadium/pages/onbording/onbording1.dart';
 import 'package:stadium/widgets/clickables/icon_log_in.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:stadium/widgets/clickables/text_clickable.dart';
@@ -147,7 +148,9 @@ class _RegisterPagesState extends State<RegisterPages> {
                   SizedBox(
                     height: 40,
                   ),
-                  Mainbutton(text: "Sign up",ontap: (){},),
+                  Mainbutton(text: "Sign up",ontap: (){
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>Onbording1()));
+                  },),
                   SizedBox(
                     height: 20,
                   ),
