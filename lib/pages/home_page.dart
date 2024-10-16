@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:iconly/iconly.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/stadium_details.dart';
 import 'package:stadium/widgets/cards/StadiumCard%20_home.dart';
 import 'package:stadium/widgets/cards/near_studiam_card.dart';
 import 'package:stadium/widgets/clickables/app_bar_icon.dart';
@@ -83,13 +83,21 @@ class _Home_pageState extends State<Home_page> {
                     itemCount: 15,
                     padding: const EdgeInsets.all(8.0),
                     itemBuilder: (context, index) {
-                      return CustomStadiumCard(
-                        location: 'Hadayak, Benghazi',
-                        rating: 4.4,
-                        imageUrl:
-                            'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                        stadiumName: 'tottenham stadium',
-                        pricePerHour: 40,
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => StadiumDetails()));
+                        },
+                        child: CustomStadiumCard(
+                          location: 'Hadayak, Benghazi',
+                          rating: 4.4,
+                          imageUrl:
+                              'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
+                          stadiumName: 'tottenham stadium',
+                          pricePerHour: 40,
+                        ),
                       );
                     },
                   ),

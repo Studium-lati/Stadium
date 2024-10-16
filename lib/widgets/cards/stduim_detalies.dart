@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/checkout_page.dart';
 
 class StadiumDetailsCard extends StatelessWidget {
   final String stadiumName;
@@ -152,7 +153,10 @@ class StadiumDetailsCard extends StatelessWidget {
                   SizedBox(height: 40),
                   Center(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => CheckoutPage()));
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
