@@ -3,17 +3,26 @@ import 'package:stadium/helper/const.dart';
 
 
 class Mainbutton extends StatelessWidget {
-  const Mainbutton({super.key, required this.text, 
-   this.textsize,  this.paddingbutten =const EdgeInsets.symmetric(vertical: 10.0),  
+  Mainbutton({super.key,
+   required this.text, 
+   this.textsize, 
+   this.paddingbutten = const EdgeInsets.symmetric(vertical: 10.0),  
    required this.ontap, 
-    this.textcolor=Colors.white, 
-    this.backgroundColor, });
+    this.textcolor = Colors.white, 
+    this.backgroundColor,
+     BorderRadius? borderbutton, 
+     this.strokeColor = Colors.grey}) 
+     : borderbutton = borderbutton ?? BorderRadius.circular(8.0);
+
   final String text;
   final double? textsize;
   final EdgeInsetsGeometry paddingbutten;
   final Function ontap;
   final Color textcolor;
   final Color? backgroundColor ;
+  final BorderRadius?borderbutton;
+  final Color strokeColor ;
+
   
 
   @override
@@ -27,9 +36,9 @@ class Mainbutton extends StatelessWidget {
         padding: paddingbutten,
         backgroundColor: backgroundColor??primaryColor, 
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
+          borderRadius: borderbutton as BorderRadiusGeometry,
           side: BorderSide(
-            color: grayColor,
+            color:strokeColor ,
             width: 1
           )
         ),

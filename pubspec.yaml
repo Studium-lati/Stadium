@@ -39,6 +39,13 @@ dependencies:
   flutter_native_splash: ^2.4.1
   font_awesome_flutter: ^10.7.0
   iconly: ^1.0.1
+  pin_code_fields:
+  flutter_spinkit:
+  google_maps_flutter:
+  geolocator:
+  flutter_osm_plugin:
+  
+  
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +61,7 @@ flutter_icons:
   adaptive_icon_background: "assets/ic_launcher_background.png"
   adaptive_icon_foreground: "assets/ic_launcher_foreground.png"
   adaptive_icon_padding: true
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
