@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/pages/choose_card_page.dart';
+import 'package:stadium/pages/main/choose_card_page.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -60,7 +60,19 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             context: context, initialTime: TimeOfDay.now())
                         .then((onValue) {
                       setState(() {
-                        checkinTime = onValue;
+                        if (onValue != null &&
+                            (onValue.hour > TimeOfDay.now().hour ||
+                                (onValue.hour == TimeOfDay.now().hour &&
+                                    onValue.minute > TimeOfDay.now().minute))) {
+                          checkinTime = onValue;
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('Check-in time must be in the future'),
+                            ),
+                          );
+                        }
                       });
                     });
                   },

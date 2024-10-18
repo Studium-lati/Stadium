@@ -6,7 +6,8 @@ import 'package:stadium/widgets/inputs/text_form_widget.dart';
 
 
 class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+  const PaymentScreen({super.key, required this.image});
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class PaymentScreen extends StatelessWidget {
                 child: Text("method",style: TextStyle(fontSize: 28,fontWeight:FontWeight.w900),),
               ),    
               Image.asset(
-                'assets/Group 377.png', 
+                image, 
                 height: getScreenSize(context).height*0.3, 
                 width: getScreenSize(context).width*1,
               ),
@@ -85,4 +86,6 @@ class PaymentScreen extends StatelessWidget {
       ),
     );
   }
+
+ 
 }
