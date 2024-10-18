@@ -1,30 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/pages/stadium_details.dart';
+import 'package:stadium/pages/main/event_page.dart';
+import 'package:stadium/pages/main/favourite.dart';
+import 'package:stadium/pages/main/match_page.dart';
+import 'package:stadium/pages/main/notification_page.dart';
+import 'package:stadium/pages/main/stadium_details.dart';
+import 'package:stadium/provider/staduim_provider.dart';
 import 'package:stadium/widgets/cards/StadiumCard%20_home.dart';
 import 'package:stadium/widgets/cards/near_studiam_card.dart';
 import 'package:stadium/widgets/clickables/app_bar_icon.dart';
 import 'package:stadium/widgets/clickables/text_clickable.dart';
 import 'package:stadium/widgets/inputs/search_text.dart';
 
-class Home_page extends StatefulWidget {
-  const Home_page({super.key});
+class TabsScreen extends StatefulWidget {
+  const TabsScreen({super.key});
 
   @override
-  State<Home_page> createState() => _Home_pageState();
+  State<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _Home_pageState extends State<Home_page> {
+class _TabsScreenState extends State<TabsScreen> {
+  int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
     return Scaffold(
+        body: AnimatedSwitcher(
+          duration: Duration(milliseconds: 300),
+          child: _selectedIndex == 0
+              ? HomePage()
+              : _selectedIndex == 1
+                  ? EventPage()
+                  : _selectedIndex == 2
+                      ? MatchPage()
+                      : _selectedIndex == 3
+                          ? Favourite()
+                          : Center(
+                              child: Text("PROFILE"),
+                            ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedIndex,
+          backgroundColor: Colors.white,
+          showUnselectedLabels: false,
+          onTap: (value) {
+            setState(() {
+              _selectedIndex = value;
+            });
+          },
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(IconlyBold.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.trophy),
+              label: 'Cup',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.flash_on),
+              label: 'Match',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(IconlyBold.heart),
+              label: 'Favorite',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(IconlyBold.profile),
+              label: 'Profile',
+            ),
+          ],
+        ));
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<StaduimProvider>(
+        builder: (context, staduimConsumer, child) {
+      return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
-            AppBarIcons(function: () {}, icon: FontAwesomeIcons.bell),
+            AppBarIcons(
+                function: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NotificationPage()));
+                },
+                icon: FontAwesomeIcons.bell),
             SizedBox(
               width: 20,
             ),
@@ -129,20 +208,24 @@ class _Home_pageState extends State<Home_page> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: 10,
+                  itemCount: staduimConsumer.isLoading
+                      ? 3
+                      : staduimConsumer.stadiums.length,
                   padding: const EdgeInsets.all(8.0),
                   itemBuilder: (context, index) {
                     return NearStudiamCard(
-                      location: 'Hadayak, Benghazi',
-                      rating: 4.4,
-                      imageUrl:
-                          'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                      stadiumName: 'tottenham stadium',
-                      pricePerHour: 40,
-                    );
+                        location: 'Hadayak, Benghazi',
+                        rating: 4.4,
+                        imageUrl:
+                            'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
+                        stadiumName: staduimConsumer.stadiums[index].name,
+                        pricePerHour: double.parse(
+                            staduimConsumer.stadiums[index].pricePerHour));
                   },
                 ),
               ]),
-            )));
+            )),
+      );
+    });
   }
 }
