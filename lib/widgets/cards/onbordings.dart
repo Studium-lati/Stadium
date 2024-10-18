@@ -49,7 +49,6 @@ class Onbordings extends StatelessWidget {
               ),
               SizedBox(height: 30),
 
-              // Subtitle Text
               Text(
                 descrpation,
                 textAlign: TextAlign.center,

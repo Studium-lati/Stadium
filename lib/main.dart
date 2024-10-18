@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/pages/auth/log_in_page.dart';
 import 'package:stadium/pages/auth/splash_page.dart';
@@ -10,6 +11,11 @@ import 'package:stadium/pages/main/home_page.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/base_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
+import 'package:stadium/pages/event_detail.dart';
+
+import 'package:stadium/pages/payment_confirmation.dart';
+import 'package:stadium/pages/profile_page.dart';
+import 'package:stadium/pages/sms_code_page.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -67,5 +73,6 @@ class _ScreenRouterState extends State<ScreenRouter> {
     return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
       return authConsumer.authenticated ? const TabsScreen() : LogInPage();
     });
+
   }
 }
