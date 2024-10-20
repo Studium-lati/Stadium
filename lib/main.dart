@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stadium/helper/const.dart';
+import 'package:stadium/pages/auth/Set_newpassword_page.dart';
 import 'package:stadium/pages/auth/splash_page.dart';
 import 'package:stadium/pages/event_detail.dart';
+import 'package:stadium/pages/fillter_page.dart';
+
 
 import 'package:stadium/pages/payment_confirmation.dart';
 import 'package:stadium/pages/profile_page.dart';
+import 'package:stadium/pages/settings_page.dart';
 import 'package:stadium/pages/sms_code_page.dart';
 
 void main() {
@@ -32,6 +36,6 @@ class MyApp extends StatelessWidget {
           textTheme: GoogleFonts.poppinsTextTheme(),
        ),
         
-        home: ProfilePage());
+        home: FilterScreen());
   }
 }
