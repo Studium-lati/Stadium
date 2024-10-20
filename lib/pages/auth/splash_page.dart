@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/pages/auth/log_in_page.dart';
-import 'package:stadium/pages/onbording/onbording1.dart';
+import 'package:stadium/main.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -15,10 +14,9 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LogInPage()));
+          context, MaterialPageRoute(builder: (context) => ScreenRouter()));
     });
     super.initState();
   }

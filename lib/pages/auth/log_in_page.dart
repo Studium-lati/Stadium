@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/main.dart';
 import 'package:stadium/pages/auth/register_pages.dart';
+import 'package:stadium/pages/main/home_page.dart';
+import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/widgets/clickables/icon_log_in.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:stadium/widgets/clickables/text_clickable.dart';
@@ -25,132 +29,162 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Center(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const SizedBox(height: 20),
-                    Image.asset(
-                      'assets/logo_remove.png',
-                      height: getScreenSize(context).height * 0.2,
-                      width: getScreenSize(context).width * 0.2,
-                    ),
-                    Text(
-                      'Login here',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: primaryColor,
+    return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Center(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const SizedBox(height: 20),
+                      Image.asset(
+                        'assets/logo_remove.png',
+                        height: getScreenSize(context).height * 0.2,
+                        width: getScreenSize(context).width * 0.2,
                       ),
-                    ),
-                    // const SizedBox(height: 26),
-                    // const Text(
-                    //   'Welcome back you\'ve\n been missed!',
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     fontSize: 20,
-                    //     color: Colors.black,
-                    //     fontWeight: FontWeight.w700,
-                    //   ),
-                    // ),
-                    const SizedBox(height: 40),
-                    TextForm(
-                        controller: _emailController,
-                        labelText: "Email or Phone",
+                      Text(
+                        'Login here',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                        ),
+                      ),
+                      // const SizedBox(height: 26),
+                      // const Text(
+                      //   'Welcome back you\'ve\n been missed!',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(
+                      //     fontSize: 20,
+                      //     color: Colors.black,
+                      //     fontWeight: FontWeight.w700,
+                      //   ),
+                      // ),
+                      const SizedBox(height: 40),
+                      TextForm(
+                          controller: _emailController,
+                          labelText: "Email or Phone",
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Email or Phone is required';
+                            }
+
+                            return null;
+                          }),
+                      const SizedBox(height: 29),
+                      TextForm(
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'Email or Phone is required';
+                            return 'Password is required';
+                          }
+                          if (value.length < 6) {
+                            return 'Password must be at least 6 characters';
                           }
 
                           return null;
-                        }),
-                    const SizedBox(height: 29),
-                    TextForm(
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Password is required';
-                        }
-                        if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
-                        }
-
-                        return null;
-                      },
-                      controller: _passwordController,
-                      labelText: "Password",
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscureText
-                              ? Icons.visibility
-                              : Icons.visibility_off,
+                        },
+                        controller: _passwordController,
+                        labelText: "Password",
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
+                        obscure: _obscureText,
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                          alignment: Alignment.centerRight,
+                          child: TextClickable(
+                            text: "Forgot your password?",
+                            function: () {},
+                            color: primaryColor,
+                          )),
+                      const SizedBox(height: 30),
+                      Mainbutton(
+                        text: 'Sign in',
+                        ontap: () {
+                          if (_formKey.currentState!.validate()) {
+                            Provider.of<AuthenProvider>(context, listen: false)
+                                .login({
+                              _emailController.text.contains('@')
+                                  ? 'email'
+                                  : 'phone': _emailController.text.toString(),
+                              'password': _passwordController.text.toString(),
+                            }).then((onValue) {
+                              if (onValue[0]) {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ScreenRouter()),
+                                    (Route<dynamic> route) => false);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(onValue[1]),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            });
+                          }
                         },
                       ),
-                      obscure: _obscureText,
-                    ),
-                    const SizedBox(height: 10),
-                    Align(
-                        alignment: Alignment.centerRight,
-                        child: TextClickable(
-                          text: "Forgot your password?",
-                          function: () {},
-                          color: primaryColor,
-                        )),
-                    const SizedBox(height: 30),
-                     Mainbutton(text: 'Sign in',ontap:(){},),
-                    const SizedBox(height: 40),
-                    TextClickable(
-                        text: 'Create new account',
-                        function: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RegisterPages()));
-                        }),
-                    const SizedBox(height: 39),
-                    Text(
-                      'Or continue with',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 14,
-                          color: primaryColor,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: 20),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconLogIn(image: 'assets/icons/google.png'),
-                        SizedBox(width: 20),
-                        IconLogIn(image: 'assets/icons/facebook.png'),
-                        SizedBox(width: 20),
-                        IconLogIn(
-                            image: 'assets/icons/apple.png',
-                            height: 40,
-                            width: 40),
-                      ],
-                    ),
-                  ],
+                      const SizedBox(height: 40),
+                      TextClickable(
+                          text: 'Create new account',
+                          function: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RegisterPages()));
+                          }),
+                      const SizedBox(height: 39),
+                      Text(
+                        'Or continue with',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: primaryColor,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(height: 20),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconLogIn(image: 'assets/icons/google.png'),
+                          SizedBox(width: 20),
+                          IconLogIn(image: 'assets/icons/facebook.png'),
+                          SizedBox(width: 20),
+                          IconLogIn(
+                              image: 'assets/icons/apple.png',
+                              height: 40,
+                              width: 40),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

@@ -22,14 +22,13 @@ class NotificationCard extends StatelessWidget {
     return Container(
       height: getScreenSize(context).height * 0.23,
       width: getScreenSize(context).width,
-     decoration: BoxDecoration(  border: Border.all(
-                color: grayColor, 
-                width: 1.0,  
-                   
-              ),
-              borderRadius: BorderRadius.circular(10),
-     ),
-      
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: grayColor,
+          width: 1.0,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
       margin: const EdgeInsets.only(bottom: 20.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,7 +36,6 @@ class NotificationCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-
               title,
               style: TextStyle(
                 fontSize: 14.0,
@@ -59,25 +57,19 @@ class NotificationCard extends StatelessWidget {
                 fontSize: 12.0,
               ),
             ),
-            
-              SizedBox(height: getScreenSize(context).height*0.04, 
-),
-              Mainbutton(
-                paddingbutten: EdgeInsets.only(bottom:12 ,left: 10,right:10 ,top:12 ),
-                text: buttonText!,
-                textsize: 12.0,
-                ontap: () {
-              
-                },
-                
-
-                textcolor:primaryColor,
-                backgroundColor: Colors.white,
-              ),
-
-            ],
-
-          
+            SizedBox(
+              height: getScreenSize(context).height * 0.03,
+            ),
+            Mainbutton(
+              paddingbutten:
+                  EdgeInsets.only(bottom: 12, left: 10, right: 10, top: 12),
+              text: buttonText!,
+              textsize: 12.0,
+              ontap: () {},
+              textcolor: primaryColor,
+              backgroundColor: Colors.white,
+            ),
+          ],
         ),
       ),
     );
