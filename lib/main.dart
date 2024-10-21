@@ -2,28 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/pages/auth/log_in_page.dart';
 import 'package:stadium/pages/auth/splash_page.dart';
 import 'package:stadium/pages/main/home_page.dart';
-
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/base_provider.dart';
+
 import 'package:stadium/provider/event_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
+
+import 'package:stadium/provider/reservations_provider.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   FlutterNativeSplash.remove();
-
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -35,6 +34,7 @@ class MyApp extends StatelessWidget {
             create: (context) => StaduimProvider()..getStaduim()),
         ChangeNotifierProvider(
             create: (context) => EventProvider()..getEvent()),
+        ChangeNotifierProvider(create: (context) => ReservationsProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:stadium/models/staduim_model.dart';
 import 'package:stadium/provider/base_provider.dart';
@@ -23,7 +22,4 @@ class StaduimProvider extends BaseProvider {
       setError(true);
     }
   }
-  
-
-  
 }

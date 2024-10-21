@@ -75,8 +75,11 @@ class PaymentScreen extends StatelessWidget {
              Container(
                 width: double.infinity,
        
-              child: Mainbutton(text: "Send SMS", ontap: (){},
+              child: Mainbutton(text: "Send SMS", ontap: (){
+                
+              },
               paddingbutten: EdgeInsets.all(16),
+
               ),
 
               )

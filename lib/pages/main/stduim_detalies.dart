@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/models/staduim_model.dart';
 import 'package:stadium/pages/main/checkout_page.dart';
+import 'package:stadium/provider/reservations_provider.dart';
 
 class StadiumDetailsCard extends StatelessWidget {
   final StadiumsModel stadium;
