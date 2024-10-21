@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/pages/main/choose_card_page.dart';
+import 'package:stadium/pages/payment/choose_card_page.dart';
 import 'package:stadium/provider/reservations_provider.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
+
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});

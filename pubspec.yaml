@@ -48,6 +48,7 @@ dependencies:
   google_maps_flutter:
   geolocator:
   flutter_osm_plugin:
+  shimmer: ^3.0.0
   
   
 

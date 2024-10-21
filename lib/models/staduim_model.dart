@@ -8,8 +8,9 @@ class StadiumsModel {
     int longitude;
     String pricePerHour;
     String capacity;
-    dynamic image;
-    dynamic description;
+    String? image;
+    String? description;
+    double rating;
     String status;
     int userId;
     DateTime createdAt;
@@ -25,6 +26,7 @@ class StadiumsModel {
         required this.capacity,
          this.image,
          this.description,
+        required this.rating,
         required this.status,
         required this.userId,
         required this.createdAt,
@@ -45,6 +47,7 @@ class StadiumsModel {
         capacity: json["capacity"],
         image: json["image"],
         description: json["description"],
+        rating: json["rating"]?.toDouble(),
         status: json["status"],
         userId: json["user_id"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -61,6 +64,7 @@ class StadiumsModel {
         "capacity": capacity,
         "image": image,
         "description": description,
+        "rating": rating,
         "status": status,
         "user_id": userId,
         "created_at": createdAt.toIso8601String(),

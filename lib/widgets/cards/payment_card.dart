@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/pages/main/pymentmethod_page.dart';
+import 'package:stadium/pages/payment/pymentmethod_page.dart';
 
 class PaymentCard extends StatelessWidget {
   const PaymentCard(

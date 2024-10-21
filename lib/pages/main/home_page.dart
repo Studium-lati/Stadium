@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/auth/profile_page.dart';
 import 'package:stadium/pages/main/event_page.dart';
 import 'package:stadium/pages/main/favourite.dart';
 import 'package:stadium/pages/main/match_page.dart';
 import 'package:stadium/pages/main/notification_page.dart';
-import 'package:stadium/pages/main/stadium_details.dart';
+import 'package:stadium/pages/main/stduim_detalies.dart';
 import 'package:stadium/provider/staduim_provider.dart';
-import 'package:stadium/widgets/cards/StadiumCard%20_home.dart';
+import 'package:stadium/widgets/cards/stadiumCard%20_home.dart';
 import 'package:stadium/widgets/cards/near_studiam_card.dart';
 import 'package:stadium/widgets/clickables/app_bar_icon.dart';
 import 'package:stadium/widgets/clickables/text_clickable.dart';
@@ -29,19 +31,16 @@ class _TabsScreenState extends State<TabsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: AnimatedSwitcher(
-          duration: Duration(milliseconds: 300),
-          child: _selectedIndex == 0
-              ? HomePage()
-              : _selectedIndex == 1
-                  ? EventPage()
-                  : _selectedIndex == 2
-                      ? MatchPage()
-                      : _selectedIndex == 3
-                          ? Favourite()
-                          : Center(
-                              child: Text("PROFILE"),
-                            ),
-        ),
+            duration: Duration(milliseconds: 300),
+            child: _selectedIndex == 0
+                ? HomePage()
+                : _selectedIndex == 1
+                    ? EventPage()
+                    : _selectedIndex == 2
+                        ? MatchPage()
+                        : _selectedIndex == 3
+                            ? Favourite()
+                            : ProfilePage()),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
@@ -159,7 +158,9 @@ class _HomePageState extends State<HomePage> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: 15,
+                    itemCount: staduimConsumer.isLoading
+                        ? 2 // to show shimmer
+                        : staduimConsumer.stadiums.length,
                     padding: const EdgeInsets.all(8.0),
                     itemBuilder: (context, index) {
                       return GestureDetector(
@@ -167,15 +168,36 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => StadiumDetails()));
+                                  builder: (context) => StadiumDetailsCard(
+                                      stadium:
+                                          staduimConsumer.stadiums[index])));
                         },
-                        child: CustomStadiumCard(
-                          location: 'Hadayak, Benghazi',
-                          rating: 4.4,
-                          imageUrl:
-                              'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                          stadiumName: 'tottenham stadium',
-                          pricePerHour: 40,
+                        child: AnimatedSwitcher(
+                          duration: Duration(milliseconds: 300),
+                          child: staduimConsumer.isLoading
+                              ? Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Shimmer.fromColors(
+                                        baseColor: Colors.black12,
+                                        highlightColor: Colors.white38,
+                                        child: Container(
+                                          color: Colors.white,
+                                          width: getScreenSize(context).width *
+                                              0.6,
+                                          height:
+                                              getScreenSize(context).height *
+                                                  0.7,
+                                        )),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: CustomStadiumCard(
+                                    stadium: staduimConsumer.stadiums[index],
+                                  ),
+                                ),
                         ),
                       );
                     },
@@ -209,18 +231,30 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.vertical,
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: staduimConsumer.isLoading
-                      ? 3
+                      ? 4 // to show shimmer
+
                       : staduimConsumer.stadiums.length,
                   padding: const EdgeInsets.all(8.0),
                   itemBuilder: (context, index) {
-                    return NearStudiamCard(
-                        location: 'Hadayak, Benghazi',
-                        rating: 4.4,
-                        imageUrl:
-                            'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                        stadiumName: staduimConsumer.stadiums[index].name,
-                        pricePerHour: double.parse(
-                            staduimConsumer.stadiums[index].pricePerHour));
+                    return AnimatedSwitcher(
+                      duration: Duration(milliseconds: 300),
+                      child: staduimConsumer.isLoading
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Shimmer.fromColors(
+                                  baseColor: Colors.black12,
+                                  highlightColor: Colors.white38,
+                                  child: Container(
+                                    color: Colors.white,
+                                    height:
+                                        getScreenSize(context).height * 0.17,
+                                    width: getScreenSize(context).width,
+                                  )),
+                            )
+                          : NearStudiamCard(
+                              stadium: staduimConsumer.stadiums[index],
+                            ),
+                    );
                   },
                 ),
               ]),

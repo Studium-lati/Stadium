@@ -3,7 +3,6 @@ import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/main.dart';
-import 'package:stadium/pages/auth/log_in_page.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:stadium/widgets/inputs/search_text.dart';
@@ -86,6 +85,7 @@ class _FavouriteState extends State<Favourite> {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
+                              // ignore: deprecated_member_use
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 1,
                               blurRadius: 7,

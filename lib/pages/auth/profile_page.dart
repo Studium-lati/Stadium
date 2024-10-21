@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/widgets/cards/profile_card.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-       Scaffold(
+    return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
+      return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Profile', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold)),
-          centerTitle: true
-          ,
+          title: Text('Profile',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold)),
+          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.black),
           actions: [
             IconButton(
-              icon: Icon(Icons.settings),color: grayColor,
-              onPressed: () {
-              },
+              icon: Icon(Icons.settings),
+              color: grayColor,
+              onPressed: () {},
             ),
             IconButton(
-              icon: Icon(Icons.edit),color: grayColor,
-              onPressed: () {
-              },
+              icon: Icon(Icons.edit),
+              color: grayColor,
+              onPressed: () {},
             )
           ],
         ),
@@ -37,17 +42,19 @@ class ProfilePage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Container(
-                      height: getScreenSize(context ).height * 0.18,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                              'assets/85169860-581f-4d31-95a9-6838730df16a.jpeg'), 
-                          fit: BoxFit.cover,
-                        ),
+                      height: getScreenSize(context).height * 0.18,
+                      width: double.infinity,
+                      child: Image.network(
+                        authConsumer.userModel!.cover ?? "",
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset('assets/image_tot.png',
+                              fit: BoxFit.cover, width: double.infinity);
+                        },
                       ),
                     ),
                     Positioned(
-                      top: 80,
+                      bottom: 0,
                       left: 16,
                       child: Row(
                         children: [
@@ -57,33 +64,23 @@ class ProfilePage extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             child: CircleAvatar(
-                              
                               radius: 65,
-                              backgroundImage: AssetImage(
-                                  'assets/48d2f299-4920-4793-84b3-4dfcbddcc00f.jpeg'),
+                              backgroundImage: NetworkImage(
+                                authConsumer.userModel!.avatar ?? "",
+                              ),
                             ),
                           ),
-                          SizedBox(width: 16.0),
+                          SizedBox(width: 12.0),
                           Padding(
                             padding: const EdgeInsets.only(top: 76.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Monther Ibrahim',
+                                  authConsumer.userModel!.name,
                                   style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'LW',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.grey),
-                                ),
-                                Text(
-                                  '28-1-2005',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.black),
                                 ),
                               ],
                             ),
@@ -95,54 +92,55 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 30.0),
-                 
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     'Booking History',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,
-                    color: primaryColor
-                    
-                    ),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor),
                   ),
                 ),
               ),
               SizedBox(
                 height: getScreenSize(context).height * 0.5,
                 child: ListView(
-                  physics:NeverScrollableScrollPhysics(
-                    
-                  ),
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     StadiumCard(
-                    title: 'old trafold',
-                     date: '28_1_2005',
-                    imagePath: 'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',),
+                      title: 'old trafold',
+                      date: '28_1_2005',
+                      imagePath:
+                          'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
+                    ),
                     StadiumCard(
-                    title: 'old trafold',
-                    date: '28_1_2005',
-                    imagePath: 'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                      ),
-                         StadiumCard(
-                    title: 'old trafold',
-                    date: '28_1_2005',
-                    imagePath: 'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                      ),
-                         StadiumCard(
-                    title: 'old trafold',
-                    date: '28_1_2005',
-                    imagePath: 'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                      ),
-                 
+                      title: 'old trafold',
+                      date: '28_1_2005',
+                      imagePath:
+                          'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
+                    ),
+                    StadiumCard(
+                      title: 'old trafold',
+                      date: '28_1_2005',
+                      imagePath:
+                          'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
+                    ),
+                    StadiumCard(
+                      title: 'old trafold',
+                      date: '28_1_2005',
+                      imagePath:
+                          'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
+                    ),
                   ],
                 ),
               ),
             ],
           ),
         ),
-       
-           );
+      );
+    });
   }
 }
