@@ -6,9 +6,9 @@ class UserModel {
   String phone;
   String role;
   String email;
-  dynamic emailVerifiedAt;
-  dynamic avatar;
-  dynamic cover;
+  String? emailVerifiedAt;
+  String? avatar;
+  String? cover;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -18,9 +18,9 @@ class UserModel {
     required this.phone,
     required this.role,
     required this.email,
-    this.emailVerifiedAt,
-    this.avatar,
-    this.cover,
+     this.emailVerifiedAt,
+     this.avatar,
+     this.cover,
     required this.createdAt,
     required this.updatedAt,
   });

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/main.dart';
 import 'package:stadium/pages/auth/log_in_page.dart';
-import 'package:stadium/pages/onbording/onbording1.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/widgets/clickables/icon_log_in.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';

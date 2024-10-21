@@ -1,21 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/models/staduim_model.dart';
 
 class CustomStadiumCard extends StatelessWidget {
-  final String imageUrl;
-  final String stadiumName;
-  final String location;
-  final double rating;
-  final double pricePerHour;
+  final StadiumsModel stadium;
 
-  CustomStadiumCard({
-    required this.imageUrl,
-    required this.stadiumName,
-    required this.location,
-    required this.rating,
-    required this.pricePerHour,
-  });
+  CustomStadiumCard({super.key, required this.stadium});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +19,7 @@ class CustomStadiumCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
@@ -47,11 +39,19 @@ class CustomStadiumCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 3.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  imageUrl,
+                child: Image.network(
+                  stadium.image!,
                   height: getScreenSize(context).height * 0.2,
                   width: getScreenSize(context).width * 0.7,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
+                      height: getScreenSize(context).height * 0.17,
+                      width: getScreenSize(context).width * 0.35,
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
               ),
             ),
@@ -62,7 +62,7 @@ class CustomStadiumCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  stadiumName,
+                  stadium.name,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -74,7 +74,7 @@ class CustomStadiumCard extends StatelessWidget {
                     Icon(IconlyLight.location, color: Colors.grey, size: 16),
                     SizedBox(width: 8),
                     Text(
-                      location,
+                      stadium.location,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
@@ -93,7 +93,7 @@ class CustomStadiumCard extends StatelessWidget {
                             color: Color(0xFFFFD233), size: 22),
                         SizedBox(width: 6),
                         Text(
-                          rating.toString(),
+                          stadium.rating.toString().substring(0, 3),
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -103,7 +103,7 @@ class CustomStadiumCard extends StatelessWidget {
                           width: getScreenSize(context).width * 0.23,
                         ),
                         Text(
-                          '\$${pricePerHour.toStringAsFixed(0)}/Hour',
+                          '\$${stadium.pricePerHour}/Hour',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,

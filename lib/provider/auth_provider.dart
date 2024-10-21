@@ -3,10 +3,12 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stadium/models/user_model.dart';
 import 'package:stadium/provider/base_provider.dart';
 
 class AuthenProvider extends BaseProvider {
   bool authenticated = false;
+  UserModel? userModel;
 
   initializeAuthProvider() async {
     setLoading(true);
@@ -15,9 +17,9 @@ class AuthenProvider extends BaseProvider {
     String? token = prefs.getString("token");
     authenticated = (token != null) ? true : false;
 
-    if (authenticated) {
-      api.refreshToken();
-    }
+    // if (authenticated) {
+    //   api.refreshToken();
+    // }
     print("Bearer Token is : $token");
     print("Auth Status is : $authenticated");
 
@@ -76,6 +78,22 @@ class AuthenProvider extends BaseProvider {
       setLoading(false);
       setError(true);
       return false;
+    }
+  }
+
+  Future getUser() async {
+    setLoading(true);
+    setError(false);
+    var response = await api.get("profile");
+    if (response.statusCode == 200) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      setLoading(false);
+      setError(false);
+      return userModel;
+    } else {
+      setLoading(false);
+      setError(true);
+      return jsonDecode(response.body);
     }
   }
 }

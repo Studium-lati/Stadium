@@ -10,12 +10,8 @@ import 'package:stadium/pages/main/home_page.dart';
 
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/base_provider.dart';
+import 'package:stadium/provider/event_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
-import 'package:stadium/pages/event_detail.dart';
-
-import 'package:stadium/pages/payment_confirmation.dart';
-import 'package:stadium/pages/profile_page.dart';
-import 'package:stadium/pages/sms_code_page.dart';
 
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -33,9 +29,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => BaseProvider()),
-        ChangeNotifierProvider(create: (context) => AuthenProvider()),
+        ChangeNotifierProvider(
+            create: (context) => AuthenProvider()..getUser()),
         ChangeNotifierProvider(
             create: (context) => StaduimProvider()..getStaduim()),
+        ChangeNotifierProvider(
+            create: (context) => EventProvider()..getEvent()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -73,6 +72,5 @@ class _ScreenRouterState extends State<ScreenRouter> {
     return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
       return authConsumer.authenticated ? const TabsScreen() : LogInPage();
     });
-
   }
 }

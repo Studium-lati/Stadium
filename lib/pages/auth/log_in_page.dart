@@ -4,7 +4,6 @@ import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/main.dart';
 import 'package:stadium/pages/auth/register_pages.dart';
-import 'package:stadium/pages/main/home_page.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/widgets/clickables/icon_log_in.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';

@@ -2,22 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/models/staduim_model.dart';
 import 'package:stadium/pages/main/checkout_page.dart';
 
 class StadiumDetailsCard extends StatelessWidget {
-  final String stadiumName;
-  final String imagePath;
-  final int pricePerHour;
-  final double rating;
-  final String description;
+  final StadiumsModel stadium;
 
   const StadiumDetailsCard({
     Key? key,
-    required this.stadiumName,
-    required this.imagePath,
-    required this.pricePerHour,
-    required this.rating,
-    required this.description,
+    required this.stadium,
   }) : super(key: key);
 
   @override
@@ -34,7 +27,7 @@ class StadiumDetailsCard extends StatelessWidget {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(40)),
                 image: DecorationImage(
-                  image: AssetImage(imagePath),
+                  image: NetworkImage(stadium.image!),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -69,7 +62,7 @@ class StadiumDetailsCard extends StatelessWidget {
                 width: getScreenSize(context).width,
                 padding: EdgeInsets.all(20),
                 margin:
-                    EdgeInsets.only(top: getScreenSize(context).height * 0.46),
+                    EdgeInsets.only(top: getScreenSize(context).height * 0.52),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(36)),
@@ -83,7 +76,7 @@ class StadiumDetailsCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            stadiumName,
+                            stadium.name,
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -91,7 +84,7 @@ class StadiumDetailsCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '\$$pricePerHour/Hour',
+                            '\$${stadium.pricePerHour}/Hour',
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,
@@ -116,6 +109,7 @@ class StadiumDetailsCard extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(boxShadow: [
                               BoxShadow(
+                                // ignore: deprecated_member_use
                                 color: Colors.grey.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 8,
@@ -140,7 +134,7 @@ class StadiumDetailsCard extends StatelessWidget {
                                   Icon(IconlyBold.location,
                                       color: Colors.white),
                                   SizedBox(width: 16),
-                                  Text("Loction",
+                                  Text(stadium.location,
                                       style: TextStyle(
                                           fontSize: 12, color: Colors.white)),
                                 ],
@@ -159,7 +153,7 @@ class StadiumDetailsCard extends StatelessWidget {
                                 ),
                                 SizedBox(width: 5),
                                 Text(
-                                  " RATING \n ${rating.toString()} out of 5.0",
+                                  " RATING \n ${stadium.rating.toString()} out of 5.0",
                                   style: TextStyle(
                                       fontSize: 12,
                                       color: Colors.black,
@@ -181,7 +175,7 @@ class StadiumDetailsCard extends StatelessWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        description,
+                        stadium.description ?? 'the best stadium in the world',
                         style: TextStyle(fontSize: 12, color: Colors.black54),
                       ),
                       SizedBox(height: 14),

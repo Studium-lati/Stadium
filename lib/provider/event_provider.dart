@@ -1,20 +1,20 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:stadium/models/staduim_model.dart';
+import 'package:stadium/models/event_model.dart';
 import 'package:stadium/provider/base_provider.dart';
 
-class StaduimProvider extends BaseProvider {
-  List<StadiumsModel> stadiums = [];
+class EventProvider extends BaseProvider {
+  List<EventModel> events = [];
 
-  Future getStaduim() async {
+  Future getEvent() async {
     setLoading(true);
     setError(false);
-    Response response = await api.get("stadiums");
+    Response response = await api.get("events");
     if (response.statusCode == 200) {
       var data = json.decode(response.body)['data'];
       for (var item in data) {
-        stadiums.add(StadiumsModel.fromJson(item));
+        events.add(EventModel.fromJson(item));
       }
       setLoading(false);
       setError(false);
@@ -23,7 +23,4 @@ class StaduimProvider extends BaseProvider {
       setError(true);
     }
   }
-  
-
-  
 }
