@@ -16,7 +16,6 @@ class CustomStadiumCard extends StatelessWidget {
     required this.rating,
     required this.pricePerHour,
   });
-
   @override
   Widget build(BuildContext context) {
     return Container(

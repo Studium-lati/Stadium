@@ -124,23 +124,23 @@ class EventDetailPage extends StatelessWidget {
                   ),
                 ),
             
-            //Container(
-           //   height: getScreenSize(context).height*3,
-           //  margin: const EdgeInsets.symmetric(horizontal: 16.0),
-            // child: GoogleMap(
-               //initialCameraPosition: const CameraPosition(
-                 //target: LatLng(37.7749, -122.4194),
-                 // zoom: 12,
+            Container(
+              height: getScreenSize(context).height*3,
+             margin: const EdgeInsets.symmetric(horizontal: 16.0),
+        //   child: GoogleMap(
+          //     initialCameraPosition: const CameraPosition(
+            //     target: LatLng(37.7749, -122.4194),
+              //    zoom: 12,
                //),
                // markers: {
-                 //const Marker(
-                   //markerId: MarkerId('stadium'),
-                    //position: LatLng(37.7749, -122.4194),
-                  // infoWindow: InfoWindow(title: 'Gelora Bung Karno Stadium'),
-                //  ),
-              //  },
-            // ),
-          //  )
+                // const Marker(
+                 // markerId: MarkerId('stadium'),
+                  //  position: LatLng(37.7749, -122.4194),
+                   //infoWindow: InfoWindow(title: 'Gelora Bung Karno Stadium'),
+                  //),
+               // },
+          // ),
+            )
             
           ],
         ),

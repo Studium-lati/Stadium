@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class IconLogIn extends StatelessWidget {
-  const IconLogIn({super.key, required this.image, this.height, this.width});
+  const IconLogIn({
+  super.key, 
+  required this.image, 
+  this.height, 
+  this.width});
+  
   final String image;
   final double? height;
   final double? width;

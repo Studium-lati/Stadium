@@ -1,11 +1,9 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:stadium/models/staduim_model.dart';
 import 'package:stadium/provider/base_provider.dart';
-
 class StaduimProvider extends BaseProvider {
-  List<StadiumsModel> stadiums = [];
+List<StadiumsModel> stadiums = [];
 
   Future getStaduim() async {
     setLoading(true);
@@ -23,7 +21,6 @@ class StaduimProvider extends BaseProvider {
       setError(true);
     }
   }
-
   Future<List> getStaduimById(int id) async {
     setLoading(true);
     setError(false);
@@ -53,4 +50,7 @@ class StaduimProvider extends BaseProvider {
       return [false, json.decode(response.body)['message']];
     }
   }
+
+
+
 }
