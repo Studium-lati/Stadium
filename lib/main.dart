@@ -8,8 +8,10 @@ import 'package:stadium/pages/auth/splash_page.dart';
 import 'package:stadium/pages/main/home_page.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/base_provider.dart';
+import 'package:stadium/provider/dark_mode_provider.dart';
 
 import 'package:stadium/provider/event_provider.dart';
+import 'package:stadium/provider/favorite_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 
 import 'package:stadium/provider/reservations_provider.dart';
@@ -28,26 +30,36 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => BaseProvider()),
-        ChangeNotifierProvider(
-            create: (context) => AuthenProvider()..getUser()),
-        ChangeNotifierProvider(
-            create: (context) => StaduimProvider()..getStaduim()),
-        ChangeNotifierProvider(
-            create: (context) => EventProvider()..getEvent()),
+        ChangeNotifierProvider(create: (context) => AuthenProvider()),
+        ChangeNotifierProvider(create: (context) => StaduimProvider()),
+        ChangeNotifierProvider(create: (context) => EventProvider()),
         ChangeNotifierProvider(create: (context) => ReservationsProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteProvider()),
+        ChangeNotifierProvider(
+            create: (context) => DarkModeProvider()..getMode()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme:
-              const AppBarTheme(backgroundColor: Colors.white, elevation: 0),
-          colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
-          useMaterial3: true,
-          textTheme: GoogleFonts.poppinsTextTheme(),
-          scaffoldBackgroundColor: Colors.white,
-        ),
-        home: SplashPage(),
-      ),
+      child: Consumer<DarkModeProvider>(
+          builder: (context, darkModeConsumer, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+                backgroundColor:
+                    darkModeConsumer.isDark ? Color(0xff121212) : Colors.white,
+                elevation: 0),
+            bottomNavigationBarTheme: BottomNavigationBarThemeData(
+              backgroundColor:
+                  darkModeConsumer.isDark ? Color(0xff121212) : Colors.white,
+            ),
+            colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
+            useMaterial3: true,
+            textTheme: GoogleFonts.poppinsTextTheme(),
+            scaffoldBackgroundColor:
+                darkModeConsumer.isDark ? Color(0xff121212) : Colors.white,
+          ),
+          home: SplashPage(),
+        );
+      }),
     );
   }
 }

@@ -18,6 +18,11 @@ class EventPage extends StatefulWidget {
 }
 
 class _EventPageState extends State<EventPage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<EventProvider>(context, listen: false).getEvent();
+  }
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {

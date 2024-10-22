@@ -21,7 +21,7 @@ class _MatchPageState extends State<MatchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         appBar: AppBar(
           title: Align(
             alignment: Alignment.centerLeft,

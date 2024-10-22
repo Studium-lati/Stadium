@@ -44,7 +44,7 @@ class _TabsScreenState extends State<TabsScreen> {
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           showUnselectedLabels: false,
           onTap: (value) {
             setState(() {
@@ -85,6 +85,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<StaduimProvider>(context, listen: false).getBestStaduim();
+    Provider.of<StaduimProvider>(context, listen: false).getStaduim();
+  }
+
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -92,7 +99,7 @@ class _HomePageState extends State<HomePage> {
     return Consumer<StaduimProvider>(
         builder: (context, staduimConsumer, child) {
       return Scaffold(
-        backgroundColor: Colors.white,
+        // backgroundColor: Colors.white,
         appBar: AppBar(
           actions: [
             AppBarIcons(
@@ -108,7 +115,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
           elevation: 0,
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           title: Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -160,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: staduimConsumer.isLoading
                         ? 2 // to show shimmer
-                        : staduimConsumer.stadiums.length,
+                        : staduimConsumer.beststadiums.length,
                     padding: const EdgeInsets.all(8.0),
                     itemBuilder: (context, index) {
                       return GestureDetector(
@@ -169,8 +176,8 @@ class _HomePageState extends State<HomePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => StadiumDetailsCard(
-                                      stadium:
-                                          staduimConsumer.stadiums[index])));
+                                      stadium: staduimConsumer
+                                          .beststadiums[index])));
                         },
                         child: AnimatedSwitcher(
                           duration: Duration(milliseconds: 300),
@@ -195,7 +202,8 @@ class _HomePageState extends State<HomePage> {
                               : Padding(
                                   padding: const EdgeInsets.only(right: 10),
                                   child: CustomStadiumCard(
-                                    stadium: staduimConsumer.stadiums[index],
+                                    stadium:
+                                        staduimConsumer.beststadiums[index],
                                   ),
                                 ),
                         ),

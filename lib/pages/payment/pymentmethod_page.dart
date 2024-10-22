@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/payment/sms_code_page.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:stadium/widgets/inputs/text_form_widget.dart';
 
@@ -76,6 +77,7 @@ class PaymentScreen extends StatelessWidget {
                 width: double.infinity,
        
               child: Mainbutton(text: "Send SMS", ontap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> SmsCodePage()));
                 
               },
               paddingbutten: EdgeInsets.all(16),
