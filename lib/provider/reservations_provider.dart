@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'package:flutter/src/material/time.dart';
 import 'package:http/http.dart' as http;
 import 'package:stadium/models/reservations_model.dart';
 import 'package:stadium/provider/base_provider.dart';
 
 class ReservationsProvider  extends BaseProvider {
- ReservationsModel? reservationsModel ;
+ ReservationsModel reservationsModel = ReservationsModel() ;
 
   List<ReservationsModel> reservations = [];
   List<ReservationsModel> get getReservations => reservations;
@@ -25,10 +24,11 @@ class ReservationsProvider  extends BaseProvider {
       setError(true);
     }
   }
-  Future<List> addReservation(Map body) async {
+  
+  Future<List>reserveStadium() async {
     setLoading(true);
     setError(false);
-    http.Response response = await api.post("reservation", body);
+    http.Response response = await api.post("reservation", reservationsModel.toJson());
     if (response.statusCode == 201) {
       setLoading(false);
       setError(false);

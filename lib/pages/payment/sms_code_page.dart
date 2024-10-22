@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/payment/payment_confirmation.dart';
+
 import 'package:stadium/provider/reservations_provider.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -18,7 +20,7 @@ class _SmsCodePageState extends State<SmsCodePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ReservationsProvider>(
-      builder: (context,reservationsconsumer,_){
+      builder: (context,reservationsConsumer,_){
         return Scaffold(
           appBar: AppBar(
             title:   Padding(
@@ -79,8 +81,16 @@ class _SmsCodePageState extends State<SmsCodePage> {
                   height: getScreenSize(context).height * 0.065,
                   
                   
-                  child: Mainbutton(text: 'Enter code', ontap: (){
-                  Provider.of<ReservationsProvider>(context, listen: false);
+                  child: Mainbutton(text: 'Enter code', ontap: (
+
+                  ){
+              Provider.of<ReservationsProvider>(context, listen: false).reserveStadium( 
+               
+              );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PaymentConfirmation()), 
+              );
                   },
                   backgroundColor: primaryColor,
                   borderbutton: BorderRadius.circular(12),

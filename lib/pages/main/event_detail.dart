@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
@@ -48,15 +49,48 @@ class EventDetailPage extends StatelessWidget {
                         style: TextStyle(fontSize: 12),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        'Venue & Location',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(
+                              'Venue & Location',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                
+                               
+                                                height: getScreenSize(context).height*0.25,
+                                                width: getScreenSize(context).width*8,
+                                              child: GoogleMap(
+                                                mapType: MapType.normal,
+                                              initialCameraPosition: const CameraPosition(
+                                              target: LatLng(37.7749, -122.4194),
+                                              zoom: 12,
+                                              ),
+                                              markers: {
+                                              const Marker(
+                                              markerId: MarkerId('stadium'),
+                                              position: LatLng(37.7749, -122.4194),
+                                              infoWindow: InfoWindow(title: 'tot   Stadium'),
+                                               ),
+                                               },
+                                              ),
+                                               ),
+                            ),
+                          ),
+                      ],
                     ),
                   ],
                 ),
@@ -75,7 +109,6 @@ class EventDetailPage extends StatelessWidget {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              // ignore: deprecated_member_use
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 2,
@@ -129,23 +162,7 @@ class EventDetailPage extends StatelessWidget {
                   ),
                 ),
 
-                //Container(
-                //   height: getScreenSize(context).height*3,
-                //  margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                // child: GoogleMap(
-                //initialCameraPosition: const CameraPosition(
-                //target: LatLng(37.7749, -122.4194),
-                // zoom: 12,
-                //),
-                // markers: {
-                //const Marker(
-                //markerId: MarkerId('stadium'),
-                //position: LatLng(37.7749, -122.4194),
-                // infoWindow: InfoWindow(title: 'Gelora Bung Karno Stadium'),
-                //  ),
-                //  },
-                // ),
-                //  )
+              
                 Positioned(
                   top: 40,
                   left: 20,

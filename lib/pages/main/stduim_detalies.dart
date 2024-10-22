@@ -111,16 +111,14 @@ class StadiumDetailsCard extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(boxShadow: [
                               BoxShadow(
-                                // ignore: deprecated_member_use
                                 color: Colors.grey.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 8,
                                 offset: Offset(0, 2),
-                                // changes position of shadow
                               )
                             ]),
-                            // width: getScreenSize(context).width * 0.3,
-                            child: ElevatedButton(
+                            
+                                                        child: ElevatedButton(
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.all(8),
@@ -184,6 +182,9 @@ class StadiumDetailsCard extends StatelessWidget {
                       Center(
                         child: ElevatedButton(
                           onPressed: () {
+                            Provider.of<ReservationsProvider>(context,
+                                    listen: false)
+                                .reservationsModel.stadiumId = stadium.id.toString();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

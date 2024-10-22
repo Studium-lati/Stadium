@@ -616,22 +616,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
-  routing_client_dart:
-    dependency: transitive
-    description:
-      name: routing_client_dart
-      sha256: "4e2acf1145bb8056e04fd93101a9f2bab2fd769c9d972f7f403f9733a670cb33"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.5"
-  sanitize_html:
-    dependency: transitive
-    description:
-      name: sanitize_html
-      sha256: "12669c4a913688a26555323fb9cec373d8f9fbe091f2d01c40c723b33caa8989"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   shared_preferences:
     dependency: "direct main"
     description:
