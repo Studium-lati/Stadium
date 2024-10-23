@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/models/reservations_model.dart';
 import 'package:stadium/pages/payment/choose_card_page.dart';
 import 'package:stadium/provider/reservations_provider.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
@@ -20,7 +21,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ReservationsProvider>(
-      builder: (context, reservationsconsumer, child) {
+      builder: (context, reservationsConsumer, child) {
         return Scaffold(
           appBar: AppBar(
             title: Text("Booking"),
@@ -145,6 +146,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         child: Mainbutton(
                           text: "Book know",
                           ontap: () {
+                              reservationsConsumer.reservationsModel.date = DateTime.now();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

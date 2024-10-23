@@ -12,7 +12,7 @@ import 'package:stadium/pages/main/match_page.dart';
 import 'package:stadium/pages/main/notification_page.dart';
 import 'package:stadium/pages/main/stduim_detalies.dart';
 import 'package:stadium/provider/staduim_provider.dart';
-import 'package:stadium/widgets/cards/stadiumCard%20_home.dart';
+import 'package:stadium/widgets/cards/StadiumCard%20_home.dart';
 import 'package:stadium/widgets/cards/near_studiam_card.dart';
 import 'package:stadium/widgets/clickables/app_bar_icon.dart';
 import 'package:stadium/widgets/clickables/text_clickable.dart';
