@@ -6,6 +6,7 @@ import 'package:stadium/helper/const.dart';
 import 'package:stadium/pages/auth/log_in_page.dart';
 import 'package:stadium/pages/auth/splash_page.dart';
 import 'package:stadium/pages/main/home_page.dart';
+import 'package:stadium/pages/onbording/onbording1.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/base_provider.dart';
 import 'package:stadium/provider/dark_mode_provider.dart';
@@ -82,7 +83,7 @@ class _ScreenRouterState extends State<ScreenRouter> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
-      return authConsumer.authenticated ? const TabsScreen() : LogInPage();
+      return authConsumer.authenticated ? const Onbording1() : LogInPage();
     });
   }
 }
