@@ -20,8 +20,10 @@ class AuthenProvider extends BaseProvider {
     // if (authenticated) {
     //   api.refreshToken();
     // }
+    if (kDebugMode) {
     print("Bearer Token is : $token");
-    print("Auth Status is : $authenticated");
+      print("Auth Status is : $authenticated");
+    }
 
     setLoading(false);
   }
