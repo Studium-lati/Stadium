@@ -44,6 +44,7 @@ class Api {
         body: body);
 
     if (kDebugMode) {
+      print("Body: ${jsonEncode(body)}");
       print('POST $url');
       print('Response: ${response.body}');
       print("Status Code: ${response.statusCode}");

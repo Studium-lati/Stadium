@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/main.dart';
+import 'package:stadium/provider/auth_provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -18,6 +20,8 @@ class _SplashPageState extends State<SplashPage> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => ScreenRouter()));
     });
+    Provider.of<AuthenProvider>(context, listen: false).isFirstTimee();
+
     super.initState();
   }
 

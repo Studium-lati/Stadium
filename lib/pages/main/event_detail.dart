@@ -64,32 +64,31 @@ class EventDetailPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                
-                               
-                                                height: getScreenSize(context).height*0.25,
-                                                width: getScreenSize(context).width*8,
-                                              child: GoogleMap(
-                                                mapType: MapType.normal,
-                                              initialCameraPosition: const CameraPosition(
-                                              target: LatLng(37.7749, -122.4194),
-                                              zoom: 12,
-                                              ),
-                                              markers: {
-                                              const Marker(
-                                              markerId: MarkerId('stadium'),
-                                              position: LatLng(37.7749, -122.4194),
-                                              infoWindow: InfoWindow(title: 'tot   Stadium'),
-                                               ),
-                                               },
-                                              ),
-                                               ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: SizedBox(
+                              height: getScreenSize(context).height * 0.25,
+                              width: getScreenSize(context).width * 8,
+                              child: GoogleMap(
+                                mapType: MapType.normal,
+                                initialCameraPosition: const CameraPosition(
+                                  target: LatLng(37.7749, -122.4194),
+                                  zoom: 12,
+                                ),
+                                markers: {
+                                  const Marker(
+                                    markerId: MarkerId('stadium'),
+                                    position: LatLng(37.7749, -122.4194),
+                                    infoWindow:
+                                        InfoWindow(title: 'tot   Stadium'),
+                                  ),
+                                },
+                              ),
                             ),
                           ),
+                        ),
                       ],
                     ),
                   ],
@@ -161,8 +160,6 @@ class EventDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
-              
                 Positioned(
                   top: 40,
                   left: 20,

@@ -53,12 +53,12 @@ class _ProfilePageState extends State<ProfilePage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: getScreenSize(context).height * 0.26,
+              SizedBox(
+                height: getScreenSize(context).height * 0.3,
                 child: Stack(
                   children: [
-                    Container(
-                      height: getScreenSize(context).height * 0.18,
+                    SizedBox(
+                      height: getScreenSize(context).height * 0.23,
                       width: double.infinity,
                       child: authConsumer.isLoading
                           ? Shimmer.fromColors(
@@ -97,9 +97,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       child: Container(
                                         color: Colors.white,
                                         width:
-                                            getScreenSize(context).width * 0.2,
-                                        height:
-                                            getScreenSize(context).height * 0.2,
+                                            getScreenSize(context).width * 0.3,
+                                        height: getScreenSize(context).height *
+                                            0.15,
                                       ),
                                     ))
                                 : CircleAvatar(

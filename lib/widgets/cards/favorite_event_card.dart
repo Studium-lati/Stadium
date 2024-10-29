@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/models/staduim_model.dart';
-import 'package:stadium/pages/main/stduim_detalies.dart';
+import 'package:stadium/models/event_model.dart';
+import 'package:stadium/pages/main/event_detail.dart';
 
-class FavoriteCard extends StatelessWidget {
-  const FavoriteCard({super.key, required this.stadium});
-  final StadiumsModel stadium;
+class FavoriteEventCard extends StatelessWidget {
+  const FavoriteEventCard({super.key, required this.event});
+  final EventModel event;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class FavoriteCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => StadiumDetailsCard(
-              stadium: stadium,
+            builder: (context) => EventDetailPage(
+              event: event,
             ),
           ),
         );
@@ -45,7 +45,7 @@ class FavoriteCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   image: NetworkImage(
-                    stadium.image ?? 'default_image_url',
+                    event.image,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -57,7 +57,7 @@ class FavoriteCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  stadium.name,
+                  event.name,
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
@@ -73,7 +73,7 @@ class FavoriteCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 5),
                     Text(
-                      stadium.location,
+                      event.date,
                       style: const TextStyle(
                         fontSize: 15,
                         color: Colors.grey,
@@ -95,7 +95,7 @@ class FavoriteCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 5),
                         Text(
-                          stadium.rating.toString().substring(0, 3),
+                          event.status,
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.grey,
@@ -106,11 +106,6 @@ class FavoriteCard extends StatelessWidget {
                     SizedBox(
                       width: getScreenSize(context).width * 0.17,
                     ),
-                    Text("\$ ${stadium.pricePerHour.toString()}",
-                        style: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        )),
                   ],
                 ),
               ],

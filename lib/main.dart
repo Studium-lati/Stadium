@@ -83,7 +83,11 @@ class _ScreenRouterState extends State<ScreenRouter> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
-      return authConsumer.authenticated ? const Onbording1() : LogInPage();
+      return authConsumer.isFirstTime!
+          ? const Onbording1()
+          : authConsumer.authenticated
+              ? TabsScreen()
+              : LogInPage();
     });
   }
 }

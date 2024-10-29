@@ -4,6 +4,8 @@ import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/pages/main/home_page.dart';
 
 class PaymentConfirmation extends StatelessWidget {
+  const PaymentConfirmation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

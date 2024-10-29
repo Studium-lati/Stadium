@@ -10,7 +10,10 @@ import 'package:stadium/pages/main/event_page.dart';
 import 'package:stadium/pages/main/favourite.dart';
 import 'package:stadium/pages/main/match_page.dart';
 import 'package:stadium/pages/main/notification_page.dart';
+import 'package:stadium/pages/main/see_all_bestfiled_page.dart';
+import 'package:stadium/pages/main/see_all_stuadms_page.dart';
 import 'package:stadium/pages/main/stduim_detalies.dart';
+import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 import 'package:stadium/widgets/cards/StadiumCard%20_home.dart';
 import 'package:stadium/widgets/cards/near_studiam_card.dart';
@@ -153,7 +156,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       TextClickable(
                         text: "See All",
-                        function: () {},
+                        function: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SeeAllBest()));
+                        },
                         color: secondaryColor,
                       )
                     ],
@@ -167,7 +175,9 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     itemCount: staduimConsumer.isLoading
                         ? 2 // to show shimmer
-                        : staduimConsumer.beststadiums.length,
+                        : staduimConsumer.beststadiums.length > 5
+                            ? 5
+                            : staduimConsumer.beststadiums.length,
                     padding: const EdgeInsets.all(8.0),
                     itemBuilder: (context, index) {
                       return GestureDetector(
@@ -228,7 +238,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       TextClickable(
                         text: "See All",
-                        function: () {},
+                        function: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SeeAllnear()));
+                        },
                         color: secondaryColor,
                       )
                     ],
@@ -240,8 +255,9 @@ class _HomePageState extends State<HomePage> {
                   physics: NeverScrollableScrollPhysics(),
                   itemCount: staduimConsumer.isLoading
                       ? 4 // to show shimmer
-
-                      : staduimConsumer.stadiums.length,
+                      : staduimConsumer.stadiums.length > 5
+                          ? 5
+                          : staduimConsumer.stadiums.length,
                   padding: const EdgeInsets.all(8.0),
                   itemBuilder: (context, index) {
                     return AnimatedSwitcher(

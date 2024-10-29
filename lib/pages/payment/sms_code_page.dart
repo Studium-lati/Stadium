@@ -19,16 +19,20 @@ class _SmsCodePageState extends State<SmsCodePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ReservationsProvider>(
-      builder: (context,reservationsConsumer,_){
-        return Scaffold(
-          appBar: AppBar(
-            title:   Padding(
-               padding: const EdgeInsets.only(bottom:0 ,left: 20,right: 0,top: 20,
-               ),
-               child: Icon(
-                       Icons.arrow_back_ios,
-                       size: 30,
-                     ),
+        builder: (context, reservationsConsumer, _) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.only(
+              bottom: 0,
+              left: 20,
+              right: 0,
+              top: 20,
+            ),
+            child: Icon(
+              Icons.arrow_back_ios,
+              size: 30,
+            ),
           ),
         ),
         body: Column(
@@ -64,53 +68,50 @@ class _SmsCodePageState extends State<SmsCodePage> {
                           fontWeight: FontWeight.bold,
                           fontSize: 16),
                     ),
-                    PinCodeTextField(appContext: 
-                               context
-                               , length: 6,
-                               onChanged: (value){
-                                  print(value);
-                               },
-                               pinTheme: PinTheme(
-                                  shape: PinCodeFieldShape.box,
-                                  borderRadius: BorderRadius.circular(5),
-                                  fieldHeight: 50,
-                                  fieldWidth: 40,
-                                  activeColor: primaryColor,
-                                  inactiveColor: grayColor,
-                                  fieldOuterPadding: EdgeInsets.all(10),
-                               
-                               ),
-                    ),
-                  ],
-                ),
-                ),
-                SizedBox(height: getScreenSize(context).height * 0.08,),
-                Container(
-                  width: getScreenSize(context).width * 0.7,
-                  height: getScreenSize(context).height * 0.065,
-                  
-                  
-                  child: Mainbutton(text: 'Enter code', ontap: (
-
-                  ){
-              Provider.of<ReservationsProvider>(context, listen: false).reserveStadium( 
-               
-              );
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => PaymentConfirmation()), 
-              );
-                  },
-                  backgroundColor: primaryColor,
-                  borderbutton: BorderRadius.circular(12),
-        
-                  
                   ),
-                )      
-           ],
-         ),
-        );
-      }
-    );
+                  PinCodeTextField(
+                    appContext: context,
+                    length: 6,
+                    onChanged: (value) {
+                      print(value);
+                    },
+                    pinTheme: PinTheme(
+                      shape: PinCodeFieldShape.box,
+                      borderRadius: BorderRadius.circular(5),
+                      fieldHeight: 50,
+                      fieldWidth: 40,
+                      activeColor: primaryColor,
+                      inactiveColor: grayColor,
+                      fieldOuterPadding: EdgeInsets.all(10),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: getScreenSize(context).height * 0.08,
+            ),
+            SizedBox(
+              width: getScreenSize(context).width * 0.7,
+              height: getScreenSize(context).height * 0.065,
+              child: Mainbutton(
+                text: 'Enter code',
+                ontap: () {
+                  Provider.of<ReservationsProvider>(context, listen: false)
+                      .reserveStadium();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PaymentConfirmation()),
+                  );
+                },
+                backgroundColor: primaryColor,
+                borderbutton: BorderRadius.circular(12),
+              ),
+            )
+          ],
+        ),
+      );
+    });
   }
 }

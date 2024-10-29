@@ -16,8 +16,10 @@ class onboarding3 extends StatelessWidget {
         value: 1,
         paddingbutten: EdgeInsets.symmetric(vertical: 10, horizontal: 40),
         ontap: () {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => TabsScreen()));
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => TabsScreen()),
+              (Route<dynamic> route) => false);
         });
   }
 }
