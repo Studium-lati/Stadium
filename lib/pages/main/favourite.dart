@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/main.dart';
 import 'package:stadium/provider/auth_provider.dart';
+import 'package:stadium/provider/favorite_provider.dart';
+import 'package:stadium/widgets/cards/favorite_card.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:stadium/widgets/inputs/search_text.dart';
 
@@ -15,10 +17,19 @@ class Favourite extends StatefulWidget {
 }
 
 class _FavouriteState extends State<Favourite> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<FavoriteProvider>(context, listen: false).getStaduim();
+  }
+
+  String selectedButton = "All";
+
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
+    return Consumer2<AuthenProvider, FavoriteProvider>(
+        builder: (context, authConsumer, favoriteConsumer, child) {
       return Scaffold(
           body: SafeArea(
         child: SingleChildScrollView(
@@ -38,17 +49,16 @@ class _FavouriteState extends State<Favourite> {
                       child: Mainbutton(
                         text: "All",
                         ontap: () {
-                          Provider.of<AuthenProvider>(context, listen: false)
-                              .logout()
-                              .then((onValue) {
-                            if (onValue) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ScreenRouter()));
-                            }
+                          setState(() {
+                            selectedButton = "All";
                           });
                         },
+                        backgroundColor: selectedButton == "All"
+                            ? primaryColor
+                            : Colors.white,
+                        textcolor: selectedButton == "All"
+                            ? Colors.white
+                            : Colors.grey,
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -56,19 +66,36 @@ class _FavouriteState extends State<Favourite> {
                       width: getScreenSize(context).width * 0.29,
                       child: Mainbutton(
                         text: "Event",
-                        ontap: () {},
-                        backgroundColor: Colors.white,
-                        textcolor: Colors.grey,
+                        ontap: () {
+                          setState(() {
+                            selectedButton = "Event";
+                          });
+                        },
+                        backgroundColor: selectedButton == "Event"
+                            ? primaryColor
+                            : Colors.white,
+                        textcolor: selectedButton == "Event"
+                            ? Colors.white
+                            : Colors.grey,
                       ),
                     ),
                     const SizedBox(width: 10),
                     SizedBox(
                       width: getScreenSize(context).width * 0.29,
                       child: Mainbutton(
-                          text: "Stadium",
-                          ontap: () {},
-                          backgroundColor: Colors.white,
-                          textcolor: Colors.grey),
+                        text: "Stadium",
+                        ontap: () {
+                          setState(() {
+                            selectedButton = "Stadium";
+                          });
+                        },
+                        backgroundColor: selectedButton == "Stadium"
+                            ? primaryColor
+                            : Colors.white,
+                        textcolor: selectedButton == "Stadium"
+                            ? Colors.white
+                            : Colors.grey,
+                      ),
                     ),
                   ],
                 ),
@@ -77,105 +104,38 @@ class _FavouriteState extends State<Favourite> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: 7,
+                    itemCount: favoriteConsumer.isLoading
+                        ? 4
+                        : favoriteConsumer.staduimModel.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xD3F8F9FA),
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              // ignore: deprecated_member_use
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        margin: const EdgeInsets.only(bottom: 20),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: getScreenSize(context).height * 0.17,
-                              width: getScreenSize(context).width * 0.4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                      'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg'),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Arsenal stadium",
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      IconlyBold.location,
-                                      color: Colors.blue[800],
-                                      size: 18,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
-                                      "Haware, Benghazi",
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 40),
-                                Row(
-                                  // mainAxisAlignment:
-                                  //     MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          IconlyBold.star,
-                                          color: Colors.yellow[800],
-                                          size: 18,
-                                        ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          "4.7",
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width:
-                                          getScreenSize(context).width * 0.17,
-                                    ),
-                                    Text("\$ 55/Hour",
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.black,
+                      return AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: favoriteConsumer.isLoading
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 20, bottom: 20),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Shimmer.fromColors(
+                                        baseColor: Colors.black12,
+                                        highlightColor: Colors.white38,
+                                        child: Container(
+                                          color: Colors.white,
+                                          width: getScreenSize(context).width *
+                                              0.9,
+                                          height:
+                                              getScreenSize(context).height *
+                                                  0.17,
                                         )),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      );
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: FavoriteCard(
+                                    stadium:
+                                        favoriteConsumer.staduimModel[index],
+                                  ),
+                                ));
                     },
                   ),
                 )

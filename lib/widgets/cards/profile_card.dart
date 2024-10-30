@@ -16,21 +16,16 @@ class StadiumCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom:5 ,left: 15,right:15 ,top:5 ),
+      padding: const EdgeInsets.only(bottom: 5, left: 15, right: 15, top: 5),
       child: Container(
-       
-          decoration: BoxDecoration(  border: Border.all(
-                color: grayColor, 
-                width: 0.5,  
-                   
-
-              ),
-              borderRadius: BorderRadius.circular(10),
-          
-         
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: grayColor,
+            width: 0.5,
+          ),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
           children: [
@@ -42,29 +37,23 @@ class StadiumCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                   "Stadium:"+ title,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: grayColor
-                      ),
+                      "Stadium:" + title,
+                      style: TextStyle(fontSize: 14, color: grayColor),
                     ),
                     SizedBox(height: 5),
                     Text(
-                     "Date:"+ date,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: grayColor
-                      ),
+                      "Date:" + date,
+                      style: TextStyle(fontSize: 14, color: grayColor),
                     ),
                     SizedBox(height: 10),
-                   
-                      Mainbutton(text: "view" ,ontap: (){},backgroundColor: Colors.white,
+                    Mainbutton(
+                      text: "view",
+                      ontap: () {},
+                      backgroundColor: Colors.white,
                       textcolor: primaryColor,
                       textsize: 14,
                       strokeColor: primaryColor,
-          
-                      ),
-          
+                    ),
                   ],
                 ),
               ),
@@ -76,8 +65,7 @@ class StadiumCard extends StatelessWidget {
                   Radius.circular(10.0),
                 ),
                 child: Image.asset(
-                 imagePath,
-           
+                  imagePath,
                   fit: BoxFit.cover,
                   height: getScreenSize(context).height * 0.18,
                   width: double.infinity,

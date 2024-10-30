@@ -9,6 +9,18 @@ import 'package:stadium/provider/base_provider.dart';
 class AuthenProvider extends BaseProvider {
   bool authenticated = false;
   UserModel? userModel;
+  bool? isFirstTime;
+
+  isFirstTimee() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    isFirstTime = prefs.getBool("isFirstTime") ?? true;
+    if (isFirstTime!) {
+      prefs.setBool("isFirstTime", false);
+    }
+    if (kDebugMode) {
+      print("isFirstTime: $isFirstTime");
+    }
+  }
 
   initializeAuthProvider() async {
     setLoading(true);
@@ -20,8 +32,10 @@ class AuthenProvider extends BaseProvider {
     // if (authenticated) {
     //   api.refreshToken();
     // }
-    print("Bearer Token is : $token");
-    print("Auth Status is : $authenticated");
+    if (kDebugMode) {
+      print("Bearer Token is : $token");
+      print("Auth Status is : $authenticated");
+    }
 
     setLoading(false);
   }

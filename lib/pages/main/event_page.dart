@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/main/see_all_event_page.dart';
 import 'package:stadium/provider/event_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 import 'package:stadium/widgets/cards/nearby_event.dart';
 import 'package:stadium/widgets/cards/treanding_event.dart';
+import 'package:stadium/widgets/clickables/text_clickable.dart';
 import 'package:stadium/widgets/inputs/search_text.dart';
 
 class EventPage extends StatefulWidget {
@@ -18,6 +20,12 @@ class EventPage extends StatefulWidget {
 }
 
 class _EventPageState extends State<EventPage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<EventProvider>(context, listen: false).getEvent();
+  }
+
   TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -51,7 +59,9 @@ class _EventPageState extends State<EventPage> {
                       autoplay: true,
                       itemCount: eventConsumer.isLoading
                           ? 2
-                          : eventConsumer.events.length,
+                          : eventConsumer.events.length > 4
+                              ? 4
+                              : eventConsumer.events.length,
                       itemBuilder: (context, index) {
                         return AnimatedSwitcher(
                             duration: Duration(milliseconds: 300),
@@ -94,11 +104,16 @@ class _EventPageState extends State<EventPage> {
                           )),
                       Padding(
                         padding: const EdgeInsets.only(right: 12.0),
-                        child: Text("View All",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: primaryColor,
-                            )),
+                        child: TextClickable(
+                          text: "See All",
+                          function: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SeeAllEventPage()));
+                          },
+                          color: secondaryColor,
+                        ),
                       ),
                     ],
                   ),

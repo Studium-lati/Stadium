@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:stadium/pages/fillter_page.dart';
 
 class SearchText extends StatelessWidget {
   const SearchText({super.key, required this.searchController});
@@ -16,7 +17,12 @@ class SearchText extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               borderSide: BorderSide(color: Colors.black)),
           prefixIcon: Icon(IconlyLight.search),
-          suffixIcon: Icon(IconlyLight.filter),
+          suffixIcon: IconButton(
+              icon: Icon(IconlyLight.filter),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FilterScreen()));
+              }),
           hintText: 'Search',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
         ),

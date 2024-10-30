@@ -1,4 +1,4 @@
-
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:stadium/helper/function_helper.dart';
@@ -7,7 +7,7 @@ import 'package:stadium/models/staduim_model.dart';
 class CustomStadiumCard extends StatelessWidget {
   final StadiumsModel stadium;
 
-  CustomStadiumCard({super.key, required this.stadium});
+  const CustomStadiumCard({super.key, required this.stadium});
 
   @override
   Widget build(BuildContext context) {
@@ -108,18 +108,18 @@ class CustomStadiumCard extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                                                      color: Colors.black,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          }
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

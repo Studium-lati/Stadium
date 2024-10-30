@@ -44,6 +44,7 @@ class Api {
         body: body);
 
     if (kDebugMode) {
+      print("Body: ${jsonEncode(body)}");
       print('POST $url');
       print('Response: ${response.body}');
       print("Status Code: ${response.statusCode}");
@@ -112,7 +113,7 @@ class Api {
     String? oldToken = prefs.getString('token');
 
     final response = await http.post(
-      Uri.parse(BASE_URL + 'refresh'),
+      Uri.parse('${BASE_URL}refresh'),
       headers: {
         "Accept": 'application/json',
         "content-type": "application/json",

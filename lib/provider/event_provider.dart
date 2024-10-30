@@ -8,6 +8,7 @@ class EventProvider extends BaseProvider {
   List<EventModel> events = [];
 
   Future getEvent() async {
+    events.clear();
     setLoading(true);
     setError(false);
     Response response = await api.get("events");
