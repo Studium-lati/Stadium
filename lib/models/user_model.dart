@@ -18,9 +18,9 @@ class UserModel {
     required this.phone,
     required this.role,
     required this.email,
-     this.emailVerifiedAt,
-     this.avatar,
-     this.cover,
+    this.emailVerifiedAt,
+    this.avatar,
+    this.cover,
     required this.createdAt,
     required this.updatedAt,
   });

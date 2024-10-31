@@ -27,19 +27,19 @@ class SettingsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DarkModeProvider>(
         builder: (context, darkModeConsumer, child) {
-      return Container(
-        height: getScreenSize(context).height * 0.08,
-        width: getScreenSize(context).width,
-        decoration: BoxDecoration(
-          color: darkModeConsumer.isDark ? Color(0xff121212) : Colors.white,
-        ),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                ontap();
-              },
-              child: Container(
+      return GestureDetector(
+        onTap: () {
+          ontap();
+        },
+        child: Container(
+          height: getScreenSize(context).height * 0.08,
+          width: getScreenSize(context).width,
+          decoration: BoxDecoration(
+            color: darkModeConsumer.isDark ? Color(0xff121212) : Colors.white,
+          ),
+          child: Row(
+            children: [
+              Container(
                 height: 40.0,
                 width: 40.0,
                 decoration: BoxDecoration(
@@ -49,24 +49,24 @@ class SettingsCard extends StatelessWidget {
                 ),
                 child: icontitle,
               ),
-            ),
-            SizedBox(
-              width: 10.0,
-            ),
-            Text(
-              title,
-              style: TextStyle(
-                color: darkModeConsumer.isDark ? Colors.white : Colors.black,
-                fontSize: 12.0,
-                fontWeight: FontWeight.bold,
+              SizedBox(
+                width: 10.0,
               ),
-            ),
-            Spacer(),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.grey,
-            )
-          ],
+              Text(
+                title,
+                style: TextStyle(
+                  color: darkModeConsumer.isDark ? Colors.white : Colors.black,
+                  fontSize: 12.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Spacer(),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.grey,
+              )
+            ],
+          ),
         ),
       );
     });

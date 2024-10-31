@@ -16,8 +16,12 @@ class NearbyEvent extends StatelessWidget {
         builder: (context, staduimConsumer, child) {
       return GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => EventDetailPage(event: event,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EventDetailPage(
+                        event: event,
+                      )));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -50,18 +54,6 @@ class NearbyEvent extends StatelessWidget {
                             fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        CircleAvatar(
-                          maxRadius: 12,
-                          backgroundColor: Colors.white,
-                          child: IconButton(
-                            icon: Icon(
-                              Icons.bookmark,
-                              color: primaryColor,
-                              size: 10,
-                            ),
-                            onPressed: () {},
                           ),
                         ),
                       ],

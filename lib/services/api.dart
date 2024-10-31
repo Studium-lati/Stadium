@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
@@ -6,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stadium/helper/const.dart';
+import 'package:stadium/models/user_model.dart';
 
 class Api {
   Future<Response> get(String url) async {
@@ -58,7 +60,7 @@ class Api {
     return response;
   }
 
-  Future<Response> put(String url, Map body) async {
+  Future<Response> put(String url, UserModel body) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
@@ -68,7 +70,7 @@ class Api {
           "content-type": "application/json",
           "Authorization": "Bearer $token"
         },
-        body: body);
+        body:jsonEncode(body) );
 
     if (kDebugMode) {
       print('PUT $url');
@@ -136,5 +138,29 @@ class Api {
       print('Response: ${response.body}');
     }
     return false;
+  }
+
+  Future<Response> upload(File file, String url) async {
+    if (kDebugMode) {
+      print('UPLOAD $BASE_URL$url');
+      print('File: ${file.path}');
+    }
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+    var request = http.MultipartRequest('POST', Uri.parse('$BASE_URL$url'));
+    request.headers['Authorization'] = "Bearer $token";
+    request.headers['Accept'] = 'application/json';
+    request.headers['content-type'] = 'application/json';
+
+    http.MultipartFile multipartFile =
+        await http.MultipartFile.fromPath('image', file.path);
+    request.files.add(multipartFile);
+    http.StreamedResponse response = await request.send();
+    if (kDebugMode) {
+      print('Response: ${response.statusCode}');
+      print('Response: ${response.request}');
+    }
+
+    return http.Response.fromStream(response);
   }
 }

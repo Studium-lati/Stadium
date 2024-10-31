@@ -7,6 +7,7 @@ class ReservationsModel {
   String? time;
   String? duration;
   String price;
+  String status;
   String? deposit;
   String id;
 
@@ -19,6 +20,7 @@ class ReservationsModel {
     this.price = " ",
     this.deposit,
     this.id = "",
+    this.status = "pending",
   });
 
   factory ReservationsModel.fromRawJson(String str) =>
@@ -36,6 +38,7 @@ class ReservationsModel {
         price: json["price"],
         deposit: json["deposit"],
         id: json["id"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -48,5 +51,6 @@ class ReservationsModel {
         "price": price,
         "deposit": deposit,
         "id": id,
+        "status": status,
       };
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/main.dart';
+import 'package:stadium/pages/edit_profile_page.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/dark_mode_provider.dart';
 import 'package:stadium/widgets/cards/settings_card.dart';
@@ -45,7 +46,12 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 SettingsCard(
-                  ontap: () {},
+                  ontap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditProfilePage()));
+                  },
                   title: "Personal information",
                   icontitle: Icon(
                     Icons.person,

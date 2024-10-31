@@ -91,7 +91,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   child: Mainbutton(
                     text: "Send SMS",
                     ontap: () {
-                      reservationsConsumer.reservationsModel.deposit =
+                      reservationsConsumer.reservationsModel!.deposit =
                           amountController.text.toString();
                       Navigator.push(
                         context,

@@ -9,16 +9,21 @@ class ReservationsProvider extends BaseProvider {
   MatchModel? matchModel;
 
   List<ReservationsModel> reservations = [];
-  List<ReservationsModel> get getReservations => reservations;
-  Future<void> fetchReservations() async {
+
+  Future fetchReservations() async {
+    reservations.clear();
     setLoading(true);
     setError(false);
-    http.Response response = await api.get("reservations");
+    var response = await api.get("reservations/viewReservations");
     if (response.statusCode == 200) {
       var data = json.decode(response.body)['data'];
-      for (var item in data) {
-        reservations.add(ReservationsModel.fromJson(item));
-      }
+      data.forEach((reservation) {
+        final Map<String, dynamic> reservationMap =
+            Map<String, dynamic>.from(reservation);
+        reservations.add(ReservationsModel.fromJson(reservationMap
+            .map((key, value) => MapEntry(key, value.toString()))));
+      });
+
       setLoading(false);
       setError(false);
     } else {
@@ -34,11 +39,11 @@ class ReservationsProvider extends BaseProvider {
     //   print(jsonEncode(reservationsModel.toJson()));
     // }
     http.Response response = await api.post("reservations/stadium", {
-      "stadium_id": "${reservationsModel.stadiumId}",
-      "date": "${reservationsModel.date}",
-      "time": "${reservationsModel.time}",
-      "duration": "${reservationsModel.duration}",
-      "deposit": "${reservationsModel.deposit}",
+      "stadium_id": "${reservationsModel!.stadiumId}",
+      "date": "${reservationsModel?.date}",
+      "time": "${reservationsModel!.time}",
+      "duration": "${reservationsModel!.duration}",
+      "deposit": "${reservationsModel!.deposit}",
     });
     if (response.statusCode == 201) {
       setLoading(false);
