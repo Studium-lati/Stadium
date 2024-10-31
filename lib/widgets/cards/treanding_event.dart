@@ -16,8 +16,12 @@ class TreandingEvent extends StatelessWidget {
       builder: (context, staduimConsumer, child) {
         return GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => EventDetailPage(event: event,)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EventDetailPage(
+                          event: event,
+                        )));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -55,18 +59,6 @@ class TreandingEvent extends StatelessWidget {
                               fontSize: 20,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          CircleAvatar(
-                            maxRadius: 17,
-                            backgroundColor: Colors.white,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.bookmark,
-                                color: primaryColor,
-                                size: 17,
-                              ),
-                              onPressed: () {},
                             ),
                           ),
                         ],

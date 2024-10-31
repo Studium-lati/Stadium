@@ -7,7 +7,7 @@ import 'package:stadium/models/event_model.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 
 class EventDetailPage extends StatelessWidget {
-  const EventDetailPage({Key? key, required this.event}) : super(key: key);
+  const EventDetailPage({super.key, required this.event});
   final EventModel event;
 
   @override

@@ -49,6 +49,7 @@ dependencies:
   geolocator:
   flutter_osm_plugin:
   shimmer: ^3.0.0
+  file_picker: ^8.1.3
   
   
   

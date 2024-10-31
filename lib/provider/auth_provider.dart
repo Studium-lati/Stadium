@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
@@ -109,5 +110,70 @@ class AuthenProvider extends BaseProvider {
       setError(true);
       return jsonDecode(response.body);
     }
+  }
+
+  Future<List> updateProfile(UserModel body) async {
+    setLoading(true);
+    if (kDebugMode) {
+      print(body);
+    }
+    var response = await api.put("profile/update", body);
+    if (kDebugMode) {
+      print("Response: ${response.body}");
+      print("Status Code: ${response.statusCode}");
+    }
+    if (response.statusCode == 200) {
+      setLoading(false);
+      setError(false);
+      return [true, jsonDecode(response.body)];
+    } else {
+      setError(true);
+      setLoading(false);
+      return [false, jsonDecode(response.body)];
+    }
+  }
+
+  updateUserProfilePhoto(File file) {
+    setLoading(true);
+    api.upload(file, "upload/user").then((value) {
+      if (kDebugMode) {
+        print("Response: ${value.body}");
+        print("Status Code: ${value.statusCode}");
+      }
+
+      if (value.statusCode == 200) {
+        setLoading(false);
+        setError(false);
+        UserModel? updateUserModelwithphoto = userModel;
+        updateUserModelwithphoto!.avatar = jsonDecode(value.body)['image_name'];
+        // updateProfile(updateUserModelwithphoto);
+      } else {
+        setError(true);
+        setLoading(false);
+      }
+      // return jsonDecode(value.body);
+    });
+  }
+
+  updateUserProfilecover(File file) {
+    setLoading(true);
+    api.upload(file, "upload/user/cover").then((value) {
+      if (kDebugMode) {
+        print("Response: ${value.body}");
+        print("Status Code: ${value.statusCode}");
+      }
+
+      if (value.statusCode == 200) {
+        setLoading(false);
+        setError(false);
+        UserModel? updateUserModelwithphoto = userModel;
+        updateUserModelwithphoto!.cover = jsonDecode(value.body)['image_name'];
+        // updateProfile(updateUserModelwithphoto);
+      } else {
+        setError(true);
+        setLoading(false);
+      }
+      // return jsonDecode(value.body);
+    });
   }
 }

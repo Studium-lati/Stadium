@@ -42,63 +42,63 @@ class _FavouriteState extends State<Favourite> {
               children: [
                 SearchText(searchController: searchController),
                 const SizedBox(height: 20),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: getScreenSize(context).width * 0.29,
-                      child: Mainbutton(
-                        text: "All",
-                        ontap: () {
-                          setState(() {
-                            selectedButton = "All";
-                          });
-                        },
-                        backgroundColor: selectedButton == "All"
-                            ? primaryColor
-                            : Colors.white,
-                        textcolor: selectedButton == "All"
-                            ? Colors.white
-                            : Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    SizedBox(
-                      width: getScreenSize(context).width * 0.29,
-                      child: Mainbutton(
-                        text: "Event",
-                        ontap: () {
-                          setState(() {
-                            selectedButton = "Event";
-                          });
-                        },
-                        backgroundColor: selectedButton == "Event"
-                            ? primaryColor
-                            : Colors.white,
-                        textcolor: selectedButton == "Event"
-                            ? Colors.white
-                            : Colors.grey,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    SizedBox(
-                      width: getScreenSize(context).width * 0.29,
-                      child: Mainbutton(
-                        text: "Stadium",
-                        ontap: () {
-                          setState(() {
-                            selectedButton = "Stadium";
-                          });
-                        },
-                        backgroundColor: selectedButton == "Stadium"
-                            ? primaryColor
-                            : Colors.white,
-                        textcolor: selectedButton == "Stadium"
-                            ? Colors.white
-                            : Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     SizedBox(
+                //       width: getScreenSize(context).width * 0.29,
+                //       child: Mainbutton(
+                //         text: "All",
+                //         ontap: () {
+                //           setState(() {
+                //             selectedButton = "All";
+                //           });
+                //         },
+                //         backgroundColor: selectedButton == "All"
+                //             ? primaryColor
+                //             : Colors.white,
+                //         textcolor: selectedButton == "All"
+                //             ? Colors.white
+                //             : Colors.grey,
+                //       ),
+                //     ),
+                //     const SizedBox(width: 10),
+                //     SizedBox(
+                //       width: getScreenSize(context).width * 0.29,
+                //       child: Mainbutton(
+                //         text: "Event",
+                //         ontap: () {
+                //           setState(() {
+                //             selectedButton = "Event";
+                //           });
+                //         },
+                //         backgroundColor: selectedButton == "Event"
+                //             ? primaryColor
+                //             : Colors.white,
+                //         textcolor: selectedButton == "Event"
+                //             ? Colors.white
+                //             : Colors.grey,
+                //       ),
+                //     ),
+                //     const SizedBox(width: 10),
+                //     SizedBox(
+                //       width: getScreenSize(context).width * 0.29,
+                //       child: Mainbutton(
+                //         text: "Stadium",
+                //         ontap: () {
+                //           setState(() {
+                //             selectedButton = "Stadium";
+                //           });
+                //         },
+                //         backgroundColor: selectedButton == "Stadium"
+                //             ? primaryColor
+                //             : Colors.white,
+                //         textcolor: selectedButton == "Stadium"
+                //             ? Colors.white
+                //             : Colors.grey,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 const SizedBox(height: 20),
                 SizedBox(
                   child: ListView.builder(

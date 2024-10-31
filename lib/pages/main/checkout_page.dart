@@ -47,7 +47,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100),
                     onDateChanged: (onDateChanged) {
-                      reservationsConsumer.reservationsModel.date =
+                      reservationsConsumer.reservationsModel!.date =
                           onDateChanged;
                     }),
                 Padding(
@@ -84,7 +84,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           if (onValue != null) {
                             final now = DateTime.now();
                             final selectedDate =
-                                reservationsConsumer.reservationsModel.date;
+                                reservationsConsumer.reservationsModel!.date;
                             final selectedDateTime = DateTime(
                               selectedDate!.year,
                               selectedDate.month,
@@ -187,17 +187,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         text: "Book know",
                         ontap: () {
                           final checkinDateTime = DateTime(
-                            reservationsConsumer.reservationsModel.date!.year,
-                            reservationsConsumer.reservationsModel.date!.month,
-                            reservationsConsumer.reservationsModel.date!.day,
+                            reservationsConsumer.reservationsModel!.date!.year,
+                            reservationsConsumer.reservationsModel!.date!.month,
+                            reservationsConsumer.reservationsModel!.date!.day,
                             checkinTime!.hour,
                             checkinTime!.minute,
                           );
 
                           final checkoutDateTime = DateTime(
-                            reservationsConsumer.reservationsModel.date!.year,
-                            reservationsConsumer.reservationsModel.date!.month,
-                            reservationsConsumer.reservationsModel.date!.day,
+                            reservationsConsumer.reservationsModel!.date!.year,
+                            reservationsConsumer.reservationsModel!.date!.month,
+                            reservationsConsumer.reservationsModel!.date!.day,
                             checkoutTime!.hour,
                             checkoutTime!.minute,
                           );
@@ -206,9 +206,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               checkoutDateTime.difference(checkinDateTime);
                           final hours = duration.inHours;
 
-                          reservationsConsumer.reservationsModel.duration =
+                          reservationsConsumer.reservationsModel!.duration =
                               '$hours';
-                          reservationsConsumer.reservationsModel.time =
+                          reservationsConsumer.reservationsModel!.time =
                               checkinTime!.hour.toString();
 
                           Navigator.push(

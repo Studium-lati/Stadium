@@ -13,7 +13,6 @@ import 'package:stadium/pages/main/notification_page.dart';
 import 'package:stadium/pages/main/see_all_bestfiled_page.dart';
 import 'package:stadium/pages/main/see_all_stuadms_page.dart';
 import 'package:stadium/pages/main/stduim_detalies.dart';
-import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 import 'package:stadium/widgets/cards/StadiumCard%20_home.dart';
 import 'package:stadium/widgets/cards/near_studiam_card.dart';
@@ -263,17 +262,20 @@ class _HomePageState extends State<HomePage> {
                     return AnimatedSwitcher(
                       duration: Duration(milliseconds: 300),
                       child: staduimConsumer.isLoading
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Shimmer.fromColors(
-                                  baseColor: Colors.black12,
-                                  highlightColor: Colors.white38,
-                                  child: Container(
-                                    color: Colors.white,
-                                    height:
-                                        getScreenSize(context).height * 0.17,
-                                    width: getScreenSize(context).width,
-                                  )),
+                          ? Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Shimmer.fromColors(
+                                    baseColor: Colors.black12,
+                                    highlightColor: Colors.white38,
+                                    child: Container(
+                                      color: Colors.white,
+                                      height:
+                                          getScreenSize(context).height * 0.17,
+                                      width: getScreenSize(context).width,
+                                    )),
+                              ),
                             )
                           : NearStudiamCard(
                               stadium: staduimConsumer.stadiums[index],

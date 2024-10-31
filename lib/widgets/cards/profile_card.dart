@@ -7,74 +7,123 @@ class StadiumCard extends StatelessWidget {
   final String title;
   final String date;
   final String imagePath;
+  final String time;
+  final String price;
+  final String deposit;
+  final String duration;
 
   const StadiumCard({
-    Key? key,
+    super.key,
+    required this.time,
     required this.title,
     required this.date,
     required this.imagePath,
-  }) : super(key: key);
+    required this.price,
+    required this.deposit,
+    required this.duration,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 5, left: 15, right: 15, top: 5),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: grayColor,
-            width: 0.5,
+        padding: const EdgeInsets.only(bottom: 5, left: 15, right: 15, top: 5),
+        child: Container(
+          height: getScreenSize(context).height * 0.2,
+          width: getScreenSize(context).width,
+          decoration: BoxDecoration(
+            color: Color(0xD3F8F9FA),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                // ignore: deprecated_member_use
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 1,
+                blurRadius: 7,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(children: [
+            Container(
+              height: getScreenSize(context).height * 0.17,
+              width: getScreenSize(context).width * 0.4,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: NetworkImage(
+                    imagePath,
+                  ),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(width: 20),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: getScreenSize(context).height * 0.02,
+                ),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  "Date: ${date.toString().substring(0, 10)}",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Stadium:" + title,
-                      style: TextStyle(fontSize: 14, color: grayColor),
+                      "Time: $time",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(width: 35),
                     Text(
-                      "Date:" + date,
-                      style: TextStyle(fontSize: 14, color: grayColor),
-                    ),
-                    SizedBox(height: 10),
-                    Mainbutton(
-                      text: "view",
-                      ontap: () {},
-                      backgroundColor: Colors.white,
-                      textcolor: primaryColor,
-                      textsize: 14,
-                      strokeColor: primaryColor,
+                      "Duration: $duration",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
+                const SizedBox(height: 5),
+                Row(
+                  children: [
+                    Text(
+                      "Price: $price",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(width: 35),
+                    Text(
+                      "Deposit: $deposit",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
                 ),
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                  height: getScreenSize(context).height * 0.18,
-                  width: double.infinity,
-                ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ]),
+        ));
   }
 }
