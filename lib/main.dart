@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BaseProvider()),
         ChangeNotifierProvider(create: (context) => AuthenProvider()),
         ChangeNotifierProvider(create: (context) => StaduimProvider()),
-        ChangeNotifierProvider(
-            create: (context) => EventProvider()..getEvent()),
+        ChangeNotifierProvider(create: (context) => EventProvider()),
         ChangeNotifierProvider(
             create: (context) => ReservationsProvider()..fetchReservations()),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
@@ -85,7 +84,8 @@ class _ScreenRouterState extends State<ScreenRouter> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
-      return authConsumer.isFirstTime == true && authConsumer.authenticated == true
+      return authConsumer.isFirstTime == true &&
+              authConsumer.authenticated == true
           ? const Onbording1()
           : authConsumer.authenticated
               ? TabsScreen()
