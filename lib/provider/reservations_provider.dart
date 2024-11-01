@@ -39,11 +39,11 @@ class ReservationsProvider extends BaseProvider {
     //   print(jsonEncode(reservationsModel.toJson()));
     // }
     http.Response response = await api.post("reservations/stadium", {
-      "stadium_id": "${reservationsModel!.stadiumId}",
-      "date": "${reservationsModel?.date}",
-      "time": "${reservationsModel!.time}",
-      "duration": "${reservationsModel!.duration}",
-      "deposit": "${reservationsModel!.deposit}",
+      "stadium_id": "${reservationsModel.stadiumId}",
+      "date": "${reservationsModel.date}",
+      "time": "${reservationsModel.time}",
+      "duration": "${reservationsModel.duration}",
+      "deposit": "${reservationsModel.deposit}",
     });
     if (response.statusCode == 201) {
       setLoading(false);

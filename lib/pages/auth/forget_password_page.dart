@@ -8,6 +8,8 @@ import 'package:stadium/widgets/inputs/text_form_widget.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  ForgotPasswordScreen({super.key});
     
 
 

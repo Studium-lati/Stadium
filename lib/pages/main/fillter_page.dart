@@ -4,7 +4,10 @@ import 'package:stadium/widgets/clickables/main_button_widget.dart';
 
 
 class FilterScreen extends StatefulWidget {
+  const FilterScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _FilterScreenState createState() => _FilterScreenState();
 }
 
@@ -115,6 +118,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   selected: false,
                   onSelected: (bool selected) {
                   },
+                  // ignore: deprecated_member_use
                   selectedColor: primaryColor.withOpacity(0.2),
                   backgroundColor: Colors.white,
                 );

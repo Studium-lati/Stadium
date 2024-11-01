@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/pages/settings_page.dart';
+import 'package:stadium/pages/settings_page/settings_page.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/reservations_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';

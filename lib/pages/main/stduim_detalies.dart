@@ -12,9 +12,9 @@ class StadiumDetailsCard extends StatefulWidget {
   final StadiumsModel stadium;
 
   const StadiumDetailsCard({
-    Key? key,
+    super.key,
     required this.stadium,
-  }) : super(key: key);
+  });
 
   @override
   State<StadiumDetailsCard> createState() => _StadiumDetailsCardState();

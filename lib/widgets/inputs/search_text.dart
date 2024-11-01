@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:stadium/pages/fillter_page.dart';
+import 'package:stadium/pages/main/fillter_page.dart';
 
 class SearchText extends StatelessWidget {
   const SearchText({super.key, required this.searchController});

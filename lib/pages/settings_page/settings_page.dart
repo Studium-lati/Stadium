@@ -1,8 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/main.dart';
-import 'package:stadium/pages/edit_profile_page.dart';
+import 'package:stadium/pages/auth/edit_profile_page.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/dark_mode_provider.dart';
 import 'package:stadium/widgets/cards/settings_card.dart';
@@ -84,7 +85,9 @@ class SettingsPage extends StatelessWidget {
                   ontap: () {
                     Provider.of<DarkModeProvider>(context, listen: false)
                         .switchMode();
-                    print(darkModeConsumer.isDark);
+                    if (kDebugMode) {
+                      print(darkModeConsumer.isDark);
+                    }
                   },
                   title: darkModeConsumer.isDark ? "Light mode" : "Night mode",
                   icontitle: Icon(

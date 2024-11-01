@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
@@ -131,29 +133,27 @@ class _MatchPageState extends State<MatchPage> {
                           if (time != null) {
                             _preferredTimeController.text =
                                 time.format(context);
-                            if (time != null) {
-                              final now = DateTime.now();
-                              final selectedDateTime = DateTime(
-                                now.year,
-                                now.month,
-                                now.day,
-                                time.hour,
-                                time.minute,
-                              );
+                            final now = DateTime.now();
+                            final selectedDateTime = DateTime(
+                              now.year,
+                              now.month,
+                              now.day,
+                              time.hour,
+                              time.minute,
+                            );
 
-                              if (selectedDateTime.isAfter(now)) {
-                                _preferredTimeController.text =
-                                    time.format(context);
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        'Preferred time must be in the future'),
-                                  ),
-                                );
-                              }
+                            if (selectedDateTime.isAfter(now)) {
+                              _preferredTimeController.text =
+                                  time.format(context);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Preferred time must be in the future'),
+                                ),
+                              );
                             }
-                          }
+                                                    }
                         }
                       },
                       child: TextForm(
@@ -258,8 +258,7 @@ class _MatchPageState extends State<MatchPage> {
                                 height: 5,
                               ),
                               Text(
-                                  matchConsumer.matchModel!.user1.name ??
-                                      "User 1",
+                                  matchConsumer.matchModel!.user1.name,
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
@@ -286,8 +285,7 @@ class _MatchPageState extends State<MatchPage> {
                                   height: 5,
                                 ),
                                 Text(
-                                    matchConsumer.matchModel!.user2.name ??
-                                        "User 2",
+                                    matchConsumer.matchModel!.user2.name,
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,

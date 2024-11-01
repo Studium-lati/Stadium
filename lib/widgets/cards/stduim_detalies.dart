@@ -15,13 +15,13 @@ class StadiumDetailsCard extends StatelessWidget {
   final String description;
 
   const StadiumDetailsCard({
-    Key? key,
+    super.key,
     required this.stadiumName,
     required this.imagePath,
     required this.pricePerHour,
     required this.rating,
     required this.description,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +121,7 @@ class StadiumDetailsCard extends StatelessWidget {
                               Container(
                                 decoration: BoxDecoration(boxShadow: [
                                   BoxShadow(
+                                    // ignore: deprecated_member_use
                                     color: Colors.grey.withOpacity(0.4),
                                     spreadRadius: 1,
                                     blurRadius: 8,
