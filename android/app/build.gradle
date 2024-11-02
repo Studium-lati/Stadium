@@ -26,14 +26,28 @@ android {
         applicationId = "com.example.stadium"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
+        }
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'my-key-alias'
+            keyPassword '12345678'
+            storeFile file('my-release-key.jks') // Corrected path
+            storePassword '12345678'
+        }
     }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             // Enable shrinking, obfuscation, and optimization for release builds
             minifyEnabled true
             // Use ProGuard to shrink and obfuscate your code

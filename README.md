@@ -7,7 +7,7 @@ The **User App** allows users to browse, view, and book small stadiums for their
 
 > **Note**: The backend for this app is hosted on localhost. Please contact the developer to turn on the backend if you’d like to test the app.contect me 0911716177 argea2004@gmail.com
 
-**Note** : i have problem when upload release version so  i will upload the depug version untll i solve the problem
+**Note** :i solve the problem
 
 ## Planned Enhancements
 The User App will undergo further improvements, including:
