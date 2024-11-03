@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stadium/pages/onbording/onboarding3.dart';
 import 'package:stadium/widgets/cards/onbordings.dart';
 
+// ignore: camel_case_types
 class onboarding2 extends StatelessWidget {
   const onboarding2({super.key});
 

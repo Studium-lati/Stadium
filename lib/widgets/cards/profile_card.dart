@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/widgets/clickables/main_button_widget.dart';
 
 class StadiumCard extends StatelessWidget {
   final String title;

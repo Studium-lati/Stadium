@@ -59,14 +59,13 @@ class Onbordings extends StatelessWidget {
               ),
               SizedBox(height: 42),
               Flexible(
-                  child: Container(
-                      child: Mainbutton(
-                text: bouttentext,
-                paddingbutten: paddingbutten,
-                ontap: () {
-                  ontap();
-                },
-              ))),
+                  child: Mainbutton(
+                                  text: bouttentext,
+                                  paddingbutten: paddingbutten,
+                                  ontap: () {
+                                    ontap();
+                                  },
+                                )),
 
               SizedBox(height: 42),
 

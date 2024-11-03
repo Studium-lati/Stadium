@@ -4,7 +4,7 @@ class MessageCard extends StatelessWidget {
   final bool isSender;
   final String message;
 
-  MessageCard({
+  const MessageCard({super.key, 
     required this.isSender,
     required this.message,
   });

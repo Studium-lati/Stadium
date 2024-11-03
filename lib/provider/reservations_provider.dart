@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:stadium/models/match_making_model.dart';
 import 'package:stadium/models/reservations_model.dart';
@@ -11,6 +12,8 @@ class ReservationsProvider extends BaseProvider {
   MatchModel? matchModel;
 
   List<ReservationsModel> reservations = [];
+
+
 
 
 
@@ -43,11 +46,11 @@ class ReservationsProvider extends BaseProvider {
     //   print(jsonEncode(reservationsModel.toJson()));
     // }
     http.Response response = await api.post("reservations/stadium", {
-      "stadium_id": "${reservationsModel!.stadiumId}",
-      "date": "${reservationsModel?.date}",
-      "time": "${reservationsModel!.time}",
-      "duration": "${reservationsModel!.duration}",
-      "deposit": "${reservationsModel!.deposit}",
+      "stadium_id": "${reservationsModel.stadiumId}",
+      "date": "${reservationsModel.date}",
+      "time": "${reservationsModel.time}",
+      "duration": "${reservationsModel.duration}",
+      "deposit": "${reservationsModel.deposit}",
     });
     if (response.statusCode == 201) {
       setLoading(false);
@@ -105,10 +108,14 @@ class ReservationsProvider extends BaseProvider {
         .listen((ably.ConnectionStateChange newMeassage) async {
       switch (newMeassage.current) {
         case ably.ConnectionState.connected:
-          print('Connected to Ably!');
+          if (kDebugMode) {
+            print('Connected to Ably!');
+          }
           break;
         case ably.ConnectionState.failed:
-          print('The connection to Ably failed.');
+          if (kDebugMode) {
+            print('The connection to Ably failed.');
+          }
           // Failed connection
           break;
         default:
@@ -116,7 +123,9 @@ class ReservationsProvider extends BaseProvider {
       }
       final channel = realTimeMessage.channels.get('match');
       channel.subscribe().listen((message) {
-        print('Received message: ${message.data}');
+        if (kDebugMode) {
+          print('Received message: ${message.data}');
+        }
         chechMatch();
       });
     });

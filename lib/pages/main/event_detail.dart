@@ -73,14 +73,38 @@ class EventDetailPage extends StatelessWidget {
                               width: getScreenSize(context).width * 8,
                               child: GoogleMap(
                                 mapType: MapType.normal,
-                                initialCameraPosition: const CameraPosition(
-                                  target: LatLng(37.7749, -122.4194),
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(
+                                      staduimConsumer.stadiums
+                                          .where((stadium) =>
+                                              stadium.id == event.stadiumId)
+                                          .first
+                                          .latitude
+                                          .toDouble(),
+                                      staduimConsumer.stadiums
+                                          .where((stadium) =>
+                                              stadium.id == event.stadiumId)
+                                          .first
+                                          .longitude
+                                          .toDouble()),
                                   zoom: 12,
                                 ),
                                 markers: {
-                                  const Marker(
+                                  Marker(
                                     markerId: MarkerId('stadium'),
-                                    position: LatLng(37.7749, -122.4194),
+                                    position: LatLng(
+                                        staduimConsumer.stadiums
+                                            .where((stadium) =>
+                                                stadium.id == event.stadiumId)
+                                            .first
+                                            .latitude
+                                            .toDouble(),
+                                        staduimConsumer.stadiums
+                                            .where((stadium) =>
+                                                stadium.id == event.stadiumId)
+                                            .first
+                                            .longitude
+                                            .toDouble()),
                                     infoWindow:
                                         InfoWindow(title: 'tot   Stadium'),
                                   ),
@@ -108,6 +132,7 @@ class EventDetailPage extends StatelessWidget {
                           ),
                           boxShadow: [
                             BoxShadow(
+                              // ignore: deprecated_member_use
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 2,

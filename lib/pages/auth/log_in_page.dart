@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
@@ -11,7 +13,7 @@ import 'package:stadium/widgets/clickables/text_clickable.dart';
 import 'package:stadium/widgets/inputs/text_form_widget.dart';
 
 class LogInPage extends StatefulWidget {
-  LogInPage({super.key});
+  const LogInPage({super.key});
 
   @override
   State<LogInPage> createState() => _LogInPageState();

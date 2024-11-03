@@ -6,7 +6,10 @@ import 'package:stadium/widgets/inputs/text_form_widget.dart';
 
 
 class SetNewPasswordScreen extends StatefulWidget {
+  const SetNewPasswordScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SetNewPasswordScreenState createState() => _SetNewPasswordScreenState();
 }
 

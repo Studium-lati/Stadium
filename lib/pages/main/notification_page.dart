@@ -39,7 +39,7 @@ class _NotificationPageState extends State<NotificationPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
+                  SizedBox(
                     width: getScreenSize(context).width * 0.28,
                     height: getScreenSize(context).height * 0.05,
                     child: Mainbutton(
@@ -49,7 +49,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       paddingbutten: EdgeInsets.only(),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: getScreenSize(context).width * 0.28,
                     height: getScreenSize(context).height * 0.05,
                     child: Mainbutton(
@@ -60,7 +60,7 @@ class _NotificationPageState extends State<NotificationPage> {
                       backgroundColor: Colors.white,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: getScreenSize(context).width * 0.28,
                     height: getScreenSize(context).height * 0.05,
                     child: Mainbutton(

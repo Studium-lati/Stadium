@@ -8,8 +8,10 @@ class SettingsCard extends StatelessWidget {
   final String title;
   final Icon icontitle;
   final Color? strokeColor;
+  // ignore: non_constant_identifier_names
   final Color? IconColor;
   final Color? colortitle;
+  // ignore: non_constant_identifier_names
   final Color? ContainerColor;
   final Function ontap;
   const SettingsCard({
@@ -17,7 +19,9 @@ class SettingsCard extends StatelessWidget {
     required this.title,
     required this.icontitle,
     this.strokeColor,
+    // ignore: non_constant_identifier_names
     this.IconColor,
+    // ignore: non_constant_identifier_names
     this.ContainerColor,
     this.colortitle,
     required this.ontap,

@@ -9,8 +9,9 @@ import 'package:stadium/widgets/inputs/massege_input.dart';
 class MessagingScreen extends StatefulWidget {
   final int receiverId;
   final int senderId;
-  MessagingScreen({required this.receiverId, required this.senderId});
+  const MessagingScreen({super.key, required this.receiverId, required this.senderId});
   @override
+  // ignore: library_private_types_in_public_api
   _MessagingScreenState createState() => _MessagingScreenState();
 }
 

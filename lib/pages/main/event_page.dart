@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
-import 'package:stadium/pages/main/see_all_event_page.dart';
+import 'package:stadium/pages/see_all_page/see_all_event_page.dart';
 import 'package:stadium/provider/event_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 import 'package:stadium/widgets/cards/nearby_event.dart';

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/favorite_provider.dart';
 import 'package:stadium/widgets/cards/favorite_card.dart';
-import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:stadium/widgets/inputs/search_text.dart';
 
 class Favourite extends StatefulWidget {

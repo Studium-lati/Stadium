@@ -41,7 +41,7 @@ class PaymentCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: getScreenSize(context).width * 0.45,
                   height: getScreenSize(context).height * 0.15,
                   child: Image(

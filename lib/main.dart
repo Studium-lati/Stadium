@@ -6,7 +6,6 @@ import 'package:stadium/helper/const.dart';
 import 'package:stadium/pages/auth/log_in_page.dart';
 import 'package:stadium/pages/auth/splash_page.dart';
 import 'package:stadium/pages/main/home_page.dart';
-import 'package:stadium/pages/main/message_page.dart';
 import 'package:stadium/pages/onbording/onbording1.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/base_provider.dart';
@@ -19,39 +18,39 @@ import 'package:stadium/provider/message_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 import 'package:stadium/provider/reservations_provider.dart';
 
-
 void main() {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      
       providers: [
         ChangeNotifierProvider(create: (context) => BaseProvider()),
-        ChangeNotifierProvider(create: (context) => AuthenProvider()..getUser()),
+        ChangeNotifierProvider(
+            create: (context) => AuthenProvider()..getUser()),
         ChangeNotifierProvider(create: (context) => StaduimProvider()),
+        ChangeNotifierProvider(create: (context) => EventProvider()),
         ChangeNotifierProvider(create: (context) => MessageProvider()),
         ChangeNotifierProvider(
-            create: (context) => EventProvider()..getEvent()),
+            create: (context) => EventProvider()),
         ChangeNotifierProvider(
             create: (context) => ReservationsProvider()..fetchReservations()),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
         ChangeNotifierProvider(
             create: (context) => DarkModeProvider()..getMode()),
-       ChangeNotifierProvider<LocalizationProvider>(
+        ChangeNotifierProvider<LocalizationProvider>(
             create: (context) => LocalizationProvider()..getLanguage())
       ],
-      child: Consumer2<DarkModeProvider,LocalizationProvider>(
-          builder: (context, darkModeConsumer,localizationConsumer, child) {
-          
+      child: Consumer2<DarkModeProvider, LocalizationProvider>(
+          builder: (context, darkModeConsumer, localizationConsumer, child) {
         return MaterialApp(
-        showSemanticsDebugger: false,
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: AppBarTheme(
                 backgroundColor:
@@ -67,9 +66,7 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor:
                 darkModeConsumer.isDark ? Color(0xff121212) : Colors.white,
           ),
-          
-          home: 
-          SplashPage(),
+          home: SplashPage(),
         );
       }),
     );
@@ -82,6 +79,7 @@ class ScreenRouter extends StatefulWidget {
   @override
   State<ScreenRouter> createState() => _ScreenRouterState();
 }
+
 class _ScreenRouterState extends State<ScreenRouter> {
   @override
   void initState() {
@@ -89,10 +87,12 @@ class _ScreenRouterState extends State<ScreenRouter> {
     Provider.of<AuthenProvider>(context, listen: false)
         .initializeAuthProvider();
   }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthenProvider>(builder: (context, authConsumer, child) {
-      return authConsumer.isFirstTime == true && authConsumer.authenticated == true
+      return authConsumer.isFirstTime == true &&
+              authConsumer.authenticated == true
           ? const Onbording1()
           : authConsumer.authenticated
               ? TabsScreen()

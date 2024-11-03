@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
 import 'package:stadium/models/massege_model.dart';
 import 'package:stadium/provider/base_provider.dart';
@@ -21,10 +21,14 @@ class MessageProvider extends BaseProvider {
         .listen((ably.ConnectionStateChange newMeassage) async {
       switch (newMeassage.current) {
         case ably.ConnectionState.connected:
-          print('Connected to Ably!');
+          if (kDebugMode) {
+            print('Connected to Ably!');
+          }
           break;
         case ably.ConnectionState.failed:
-          print('The connection to Ably failed.');
+          if (kDebugMode) {
+            print('The connection to Ably failed.');
+          }
           // Failed connection
           break;
         default:
@@ -33,7 +37,9 @@ class MessageProvider extends BaseProvider {
 
       final channel = realTimeMessage.channels.get(chatChannel(receiverId, senderId));
       channel.subscribe().listen((message) {
-        print('Received message: ${message.data}');
+        if (kDebugMode) {
+          print('Received message: ${message.data}');
+        }
         final json = jsonDecode(message.data as String);
         messages.add(MessageModel(
           senderId: json["sender_id"],
@@ -48,12 +54,7 @@ class MessageProvider extends BaseProvider {
   Future<List> sendMessage(Map body) async {
       http.Response response = await api.post("chat/", body);
       if (response.statusCode == 201) {
-        var mes = json.decode(response.body);
-        messages.add(MessageModel(
-          senderId: mes["sender_id"], 
-          receiverId: int.parse(mes["receiver_id"]),
-          message: mes["message"],
-        ));
+     
         setLoading(false);
         setError(false);
         return [true, json.decode(response.body)];

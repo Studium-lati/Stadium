@@ -7,6 +7,8 @@ import 'package:stadium/widgets/clickables/main_button_widget.dart';
 
 
 class PasswordResetScreen extends StatelessWidget {
+  const PasswordResetScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

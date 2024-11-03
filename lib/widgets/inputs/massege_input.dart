@@ -4,8 +4,7 @@ import 'package:stadium/helper/const.dart';
 class MessageInputField extends StatelessWidget {
   final TextEditingController controller;
   final Function ontap;
-  MessageInputField({
-   key,
+  const MessageInputField({super.key, 
     required this.controller,
     required this.ontap,
   }) ;
