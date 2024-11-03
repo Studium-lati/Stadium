@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/pages/main/message_page.dart';
+import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/reservations_provider.dart';
 import 'package:stadium/widgets/clickables/main_button_widget.dart';
 import 'package:stadium/widgets/inputs/text_form_widget.dart';
@@ -24,9 +26,14 @@ class _MatchPageState extends State<MatchPage> {
   bool isAvailable = false;
   bool acceptRequist = false;
   @override
+  void initState() {
+    Provider.of<ReservationsProvider>(context,listen:  false).matchListner();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    return Consumer<ReservationsProvider>(
-        builder: (context, matchConsumer, child) {
+    return Consumer2<ReservationsProvider,AuthenProvider>(
+        builder: (context, matchConsumer,authenConsumer, child) {
       return Scaffold(
           // backgroundColor: Colors.white,
           appBar: AppBar(
@@ -196,6 +203,7 @@ class _MatchPageState extends State<MatchPage> {
                       ],
                     ),
                     SizedBox(height: 30),
+                    if(matchConsumer.matchModel==null)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 48),
                       child: SizedBox(
@@ -210,11 +218,6 @@ class _MatchPageState extends State<MatchPage> {
                               "preferred_date": _preferredDateController.text,
                               "preferred_time": _preferredTimeController.text,
                               "is_available_all_days": isAvailable ? "1" : "0",
-                            }).then((onValue) {
-                              setState(() {
-                                acceptRequist = onValue[0];
-                                
-                              });
                             });
                             // acceptRequist = !acceptRequist;
 
@@ -230,7 +233,7 @@ class _MatchPageState extends State<MatchPage> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    if (acceptRequist)
+                    if (matchConsumer.matchModel!=null)
                       Text("We found a match for you",
                           style: TextStyle(
                               fontSize: 20,
@@ -238,7 +241,7 @@ class _MatchPageState extends State<MatchPage> {
                               color: Colors.black)),
                     SizedBox(height: 20),
                   
-                    if (acceptRequist)
+                    if (matchConsumer.matchModel!=null)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -298,13 +301,24 @@ class _MatchPageState extends State<MatchPage> {
                         ],
                       ),
                     SizedBox(height: 20),
-                    if (acceptRequist)
+                    if (matchConsumer.matchModel!=null)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 48),
                         child: SizedBox(
                           width: double.infinity,
                           child: Mainbutton(
-                            ontap: () {},
+                            ontap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) =>MessagingScreen (
+                                  receiverId: authenConsumer.userModel!.id != matchConsumer.matchModel!.user1.id
+                                  ?matchConsumer.matchModel!.user1.id
+                                  :matchConsumer.matchModel!.user2.id
+                                  ,
+                                  senderId: authenConsumer.userModel!.id,
+                                )),
+                              );
+                            },
                             text: "Chat Now",
                           ),
                         ),
