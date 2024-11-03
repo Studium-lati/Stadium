@@ -51,7 +51,7 @@ class _LogInPageState extends State<LogInPage> {
                         width: getScreenSize(context).width * 0.2,
                       ),
                       Text(
-                        'Login here',
+                        "Log in",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 30,
@@ -112,7 +112,7 @@ class _LogInPageState extends State<LogInPage> {
                       Align(
                           alignment: Alignment.centerRight,
                           child: TextClickable(
-                            text: "Forgot your password?",
+                            text: "",
                             function: () {},
                             color: primaryColor,
                           )),

@@ -13,8 +13,9 @@ import 'package:stadium/provider/dark_mode_provider.dart';
 
 import 'package:stadium/provider/event_provider.dart';
 import 'package:stadium/provider/favorite_provider.dart';
+import 'package:stadium/provider/localization_provider.dart';
+import 'package:stadium/provider/message_provider.dart';
 import 'package:stadium/provider/staduim_provider.dart';
-
 import 'package:stadium/provider/reservations_provider.dart';
 
 void main() {
@@ -31,17 +32,23 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => BaseProvider()),
-        ChangeNotifierProvider(create: (context) => AuthenProvider()),
+        ChangeNotifierProvider(
+            create: (context) => AuthenProvider()..getUser()),
         ChangeNotifierProvider(create: (context) => StaduimProvider()),
         ChangeNotifierProvider(create: (context) => EventProvider()),
+        ChangeNotifierProvider(create: (context) => MessageProvider()),
+        ChangeNotifierProvider(
+            create: (context) => EventProvider()),
         ChangeNotifierProvider(
             create: (context) => ReservationsProvider()..fetchReservations()),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),
         ChangeNotifierProvider(
             create: (context) => DarkModeProvider()..getMode()),
+        ChangeNotifierProvider<LocalizationProvider>(
+            create: (context) => LocalizationProvider()..getLanguage())
       ],
-      child: Consumer<DarkModeProvider>(
-          builder: (context, darkModeConsumer, child) {
+      child: Consumer2<DarkModeProvider, LocalizationProvider>(
+          builder: (context, darkModeConsumer, localizationConsumer, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(

@@ -1,14 +1,21 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:stadium/models/match_making_model.dart';
 import 'package:stadium/models/reservations_model.dart';
 import 'package:stadium/provider/base_provider.dart';
+import 'package:ably_flutter/ably_flutter.dart' as ably;
+
 
 class ReservationsProvider extends BaseProvider {
   ReservationsModel reservationsModel = ReservationsModel();
   MatchModel? matchModel;
 
   List<ReservationsModel> reservations = [];
+
+
+
+
 
   Future fetchReservations() async {
     reservations.clear();
@@ -77,5 +84,50 @@ class ReservationsProvider extends BaseProvider {
       setError(true);
       return [false, json.decode(response.body)['message']];
     }
+  }
+
+  Future<List> chechMatch() async {
+      final res = await api.get("checkMatched");
+
+      if(res.statusCode==200){
+        var data = json.decode(res.body);
+          matchModel= MatchModel.fromJson(data['data']);
+          setLoading(false);
+          return[true,data['message']];
+        
+      }
+      return [false,res.statusCode];
+
+  }
+
+    void matchListner() async {
+    final realTimeMessage = ably.Realtime(
+        key: "QWglvg.2W4_nQ:N442e1zudjezjDuRPv4RmPTMelOeCdam-ufeNKu0Kok");
+    realTimeMessage.connection
+        .on(ably.ConnectionEvent.connected)
+        .listen((ably.ConnectionStateChange newMeassage) async {
+      switch (newMeassage.current) {
+        case ably.ConnectionState.connected:
+          if (kDebugMode) {
+            print('Connected to Ably!');
+          }
+          break;
+        case ably.ConnectionState.failed:
+          if (kDebugMode) {
+            print('The connection to Ably failed.');
+          }
+          // Failed connection
+          break;
+        default:
+          break;
+      }
+      final channel = realTimeMessage.channels.get('match');
+      channel.subscribe().listen((message) {
+        if (kDebugMode) {
+          print('Received message: ${message.data}');
+        }
+        chechMatch();
+      });
+    });
   }
 }

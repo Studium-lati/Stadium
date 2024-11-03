@@ -12,7 +12,6 @@ import 'package:stadium/pages/main/match_page.dart';
 import 'package:stadium/pages/main/notification_page.dart';
 import 'package:stadium/pages/see_all_page/see_all_bestfiled_page.dart';
 import 'package:stadium/pages/see_all_page/see_all_stuadms_page.dart';
-import 'package:stadium/pages/main/stduim_detalies.dart';
 import 'package:stadium/provider/staduim_provider.dart';
 import 'package:stadium/widgets/cards/StadiumCard%20_home.dart';
 import 'package:stadium/widgets/cards/near_studiam_card.dart';
@@ -179,43 +178,33 @@ class _HomePageState extends State<HomePage> {
                             : staduimConsumer.beststadiums.length,
                     padding: const EdgeInsets.all(8.0),
                     itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => StadiumDetailsCard(
-                                      stadium: staduimConsumer
-                                          .beststadiums[index])));
-                        },
-                        child: AnimatedSwitcher(
-                          duration: Duration(milliseconds: 300),
-                          child: staduimConsumer.isLoading
-                              ? Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Shimmer.fromColors(
-                                        baseColor: Colors.black12,
-                                        highlightColor: Colors.white38,
-                                        child: Container(
-                                          color: Colors.white,
-                                          width: getScreenSize(context).width *
-                                              0.6,
-                                          height:
-                                              getScreenSize(context).height *
-                                                  0.7,
-                                        )),
-                                  ),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: CustomStadiumCard(
-                                    stadium:
-                                        staduimConsumer.beststadiums[index],
-                                  ),
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 300),
+                        child: staduimConsumer.isLoading
+                            ? Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Shimmer.fromColors(
+                                      baseColor: Colors.black12,
+                                      highlightColor: Colors.white38,
+                                      child: Container(
+                                        color: Colors.white,
+                                        width: getScreenSize(context).width *
+                                            0.6,
+                                        height:
+                                            getScreenSize(context).height *
+                                                0.7,
+                                      )),
                                 ),
-                        ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: CustomStadiumCard(
+                                  stadium:
+                                      staduimConsumer.beststadiums[index],
+                                ),
+                              ),
                       );
                     },
                   ),
