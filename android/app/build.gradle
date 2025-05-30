@@ -5,6 +5,13 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'androidx.collection:collection:1.2.0' // Or try 1.1.0 if 1.2.0 also fails
+        force 'androidx.savedstate:savedstate:1.2.1'
+    }
+}
+
 android {
     namespace = "com.example.stadium"
     compileSdk = flutter.compileSdkVersion
