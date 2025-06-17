@@ -250,7 +250,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           UserModel(
                                             id: authConsumer.userModel!.id,
                                             name: _nameController.text,
-                                            phone: _phoneController.text,
+                                            phoneNumber: _phoneController.text,
                                             avatar: authConsumer
                                                 .userModel!.avatar
                                                 .toString(),
@@ -260,8 +260,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                 .userModel!.createdAt,
                                             updatedAt: authConsumer
                                                 .userModel!.updatedAt,
-                                            role: authConsumer.userModel!.role,
-                                            email: _emailController.text,
+                                            roles:
+                                                authConsumer.userModel!.roles,
+                                            type: authConsumer.userModel!.type,
+                                            status:
+                                                authConsumer.userModel!.status,
                                           ),
                                         )
                                             .then((value) {

@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                   itemCount: staduimConsumer.isLoading
                       ? 4 // to show shimmer
                       : staduimConsumer.stadiums.length > 5
-                          ? 5
+                          ? 3
                           : staduimConsumer.stadiums.length,
                   padding: const EdgeInsets.all(8.0),
                   itemBuilder: (context, index) {

@@ -122,8 +122,9 @@ class _LogInPageState extends State<LogInPage> {
                             Provider.of<AuthenProvider>(context, listen: false)
                                 .login({
                               _emailController.text.contains('@')
-                                  ? 'email'
-                                  : 'phone': _emailController.text.toString(),
+                                      ? 'email'
+                                      : 'phone_number':
+                                  _emailController.text.toString(),
                               'password': _passwordController.text.toString(),
                             }).then((onValue) {
                               if (onValue[0]) {

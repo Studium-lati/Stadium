@@ -43,9 +43,10 @@ class _StadiumDetailsCardState extends State<StadiumDetailsCard> {
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(40)),
                   image: DecorationImage(
-                    image: NetworkImage(widget.stadium.image!),
-                    fit: BoxFit.fill,
-                  ),
+                      image: NetworkImage(widget.stadium.images.isNotEmpty
+                          ? widget.stadium.images.first.url
+                          : "https://example.com/default_stadium.png"), // Provide a default
+                      fit: BoxFit.cover),
                 ),
               ),
               Positioned(

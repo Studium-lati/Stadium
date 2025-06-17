@@ -11,7 +11,7 @@ class StaduimProvider extends BaseProvider {
     beststadiums.clear();
     setLoading(true);
     setError(false);
-    Response response = await api.get("stadiums/best");
+    Response response = await api.get("stadiums?sort=-rating");
     if (response.statusCode == 200) {
       var data = json.decode(response.body)['data'];
       for (var item in data) {

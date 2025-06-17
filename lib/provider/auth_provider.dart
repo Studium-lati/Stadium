@@ -78,6 +78,112 @@ class AuthenProvider extends BaseProvider {
     }
   }
 
+  Future<List> sendOtp(String phone, String purpose) async {
+    setLoading(true);
+    setError(false);
+    final body = {'phone_number': phone, 'purpose': purpose};
+    Response response = await api.post("otp/send", body);
+    if (kDebugMode) {
+      print("Send OTP Status Code: ${response.statusCode}");
+      print("Send OTP Response: ${response.body}");
+    }
+    if (response.statusCode == 200) {
+      setLoading(false);
+      setError(false);
+      return [true, json.decode(response.body)['message']];
+    } else {
+      setLoading(false);
+      setError(true);
+      return [
+        false,
+        json.decode(response.body)['message'] ?? 'Failed to send OTP'
+      ];
+    }
+  }
+
+  Future<List> verifyOtp(String phone, String otpCode) async {
+    setLoading(true);
+    setError(false);
+    final body = {'phone_number': phone, 'otp_code': otpCode};
+    Response response = await api.post("otp/verify", body);
+    if (kDebugMode) {
+      print("Verify OTP Status Code: ${response.statusCode}");
+      print("Verify OTP Response: ${response.body}");
+    }
+    if (response.statusCode == 200) {
+      setLoading(false);
+      setError(false);
+      return [true, json.decode(response.body)['message']];
+    } else {
+      setLoading(false);
+      setError(true);
+      return [
+        false,
+        json.decode(response.body)['message'] ?? 'Failed to verify OTP'
+      ];
+    }
+  }
+
+  Future<List> registerUser(
+      String phone, String password, Map<String, dynamic> userDetails) async {
+    setLoading(true);
+    setError(false);
+    final body = {
+      'phone_number': phone,
+      'password': password,
+      'type': 'user', // Assuming 'user' is the type for registration
+      ...userDetails,
+    };
+    Response response = await api.post("register", body);
+    if (kDebugMode) {
+      print("Register User Status Code: ${response.statusCode}");
+      print("Register User Response: ${response.body}");
+    }
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      // Assuming 200 is also a success for registration
+      setLoading(false);
+      setError(false);
+      // Potentially save token here if returned by the new API
+      // SharedPreferences prefs = await SharedPreferences.getInstance();
+      // prefs.setString("token", json.decode(response.body)['access_token']);
+      // authenticated = true;
+      return [
+        true,
+        json.decode(response.body)['message'] ?? 'Registration successful'
+      ];
+    } else {
+      setLoading(false);
+      setError(true);
+      return [
+        false,
+        json.decode(response.body)['message'] ?? 'Registration failed'
+      ];
+    }
+  }
+
+  Future<List> resetPassword(String phone, String newPassword) async {
+    setLoading(true);
+    setError(false);
+    final body = {'phone': phone, 'new_password': newPassword};
+    Response response = await api.post("password/reset", body);
+    if (kDebugMode) {
+      print("Reset Password Status Code: ${response.statusCode}");
+      print("Reset Password Response: ${response.body}");
+    }
+    if (response.statusCode == 200) {
+      setLoading(false);
+      setError(false);
+      return [true, json.decode(response.body)['message']];
+    } else {
+      setLoading(false);
+      setError(true);
+      return [
+        false,
+        json.decode(response.body)['message'] ?? 'Failed to reset password'
+      ];
+    }
+  }
+
   logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setLoading(true);

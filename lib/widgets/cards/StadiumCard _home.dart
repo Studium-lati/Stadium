@@ -41,15 +41,17 @@ class CustomStadiumCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Image.network(
-                  stadium.image!,
-                  height: getScreenSize(context).height * 0.2,
+                  stadium.images.isNotEmpty
+                      ? stadium.images.first.url
+                      : "https://example.com/default_stadium.png", // Provide a default
+                  height: getScreenSize(context).height * 0.17,
                   width: getScreenSize(context).width * 0.7,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Image.asset(
                       'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
                       height: getScreenSize(context).height * 0.17,
-                      width: getScreenSize(context).width * 0.35,
+                      width: getScreenSize(context).width * 0.7,
                       fit: BoxFit.cover,
                     );
                   },

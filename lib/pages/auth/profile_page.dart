@@ -113,10 +113,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         ),
                                       ))
                                   : CircleAvatar(
-                                      radius: 65,
+                                      radius: 50,
                                       backgroundImage: NetworkImage(
                                         authConsumer.userModel!.avatar ??
-                                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUlsSgNMZa7wg18UgH_y77AkYwXctdbqzwLw&s",
+                                            "https://example.com/default_avatar.png", // Provide a default
                                       ),
                                     ),
                             ),
@@ -194,13 +194,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                       .reservations[index].date!
                                       .toIso8601String(),
                                   imagePath: stadiumConsumer.stadiums
-                                      .firstWhere((element) =>
-                                          element.id ==
-                                          int.tryParse(reservationConsumer
-                                                  .reservations[index]
-                                                  .stadiumId ??
-                                              ''))
-                                      .image!,
+                                          .firstWhere((element) =>
+                                              element.id ==
+                                              int.tryParse(reservationConsumer
+                                                      .reservations[index]
+                                                      .stadiumId ??
+                                                  ''))
+                                          .images
+                                          .isNotEmpty
+                                      ? stadiumConsumer
+                                          .stadiums[index].images.first.url
+                                      : "https://example.com/default_stadium.png", // Provide a default
                                   time: reservationConsumer
                                       .reservations[index].time!,
                                   price: reservationConsumer

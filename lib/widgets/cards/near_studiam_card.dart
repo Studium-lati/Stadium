@@ -26,7 +26,7 @@ class NearStudiamCard extends StatelessWidget {
       },
       child: Container(
         height: getScreenSize(context).height * 0.17,
-        width: getScreenSize(context).width,
+        width: getScreenSize(context).width * 0.9,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.white,
@@ -44,26 +44,26 @@ class NearStudiamCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: stadium.image != null
+                borderRadius: BorderRadius.circular(15),
+                child: stadium.images.isNotEmpty
                     ? Image.network(
-                        stadium.image!,
-                        height: getScreenSize(context).height * 0.17,
-                        width: getScreenSize(context).width * 0.35,
+                        stadium.images.first.url,
+                        width: getScreenSize(context).width * 0.3,
+                        height: getScreenSize(context).height * 0.2,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Image.asset(
                             'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                            height: getScreenSize(context).height * 0.17,
-                            width: getScreenSize(context).width * 0.35,
+                            width: double.infinity,
+                            height: getScreenSize(context).height * 0.2,
                             fit: BoxFit.cover,
                           );
                         },
                       )
                     : Image.asset(
-                        'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                        height: getScreenSize(context).height * 0.17,
-                        width: getScreenSize(context).width * 0.35,
+                        'assets/placeholder.png', // Provide a local placeholder
+                        width: double.infinity,
+                        height: getScreenSize(context).height * 0.2,
                         fit: BoxFit.cover,
                       ),
               ),

@@ -45,7 +45,9 @@ class FavoriteCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                   image: NetworkImage(
-                    stadium.image ?? 'default_image_url',
+                    stadium.images.isNotEmpty
+                        ? stadium.images.first.url
+                        : 'https://example.com/default_image_url', // Keep existing default
                   ),
                   fit: BoxFit.cover,
                 ),
