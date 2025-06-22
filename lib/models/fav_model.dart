@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:stadium/models/event_model.dart';
 import 'package:stadium/models/staduim_model.dart';
 
@@ -7,7 +5,7 @@ class FavoriteModel {
   final int id;
   final String favoritableType;
   final int favoritableId;
-  final dynamic favoritable;
+  final dynamic favoritable; // Can be StadiumsModel or EventModel
 
   FavoriteModel({
     required this.id,
@@ -17,13 +15,11 @@ class FavoriteModel {
   });
 
   factory FavoriteModel.fromJson(Map<String, dynamic> json) {
-    // Extract favoritable ID from nested object
-    final favoritableId = json['favoritable']?['id'] as int? ?? 0;
-
+    
     return FavoriteModel(
-      id: json['id'] as int? ?? 0,
-      favoritableType: json['favoritable_type'] as String? ?? '',
-      favoritableId: favoritableId,
+      id: json['id'],
+      favoritableType: json['favoritable_type'],
+      favoritableId: json['favoritable_id'],
       favoritable: _parseFavoritable(json),
     );
   }

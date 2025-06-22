@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
+import 'package:stadium/models/staduim_model.dart';
 import 'package:stadium/provider/auth_provider.dart';
 import 'package:stadium/provider/favorite_provider.dart';
 import 'package:stadium/widgets/cards/favorite_card.dart';
@@ -20,7 +21,7 @@ class _FavouriteState extends State<Favourite> {
   @override
   void initState() {
     super.initState();
-    Provider.of<FavoriteProvider>(context, listen: false).getStaduim();
+    Provider.of<FavoriteProvider>(context, listen: false).getFavorite();
   }
 
   String selectedButton = "All";
@@ -106,7 +107,7 @@ class _FavouriteState extends State<Favourite> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: favoriteConsumer.isLoading
                         ? 4
-                        : favoriteConsumer.staduimModel.length,
+                        : favoriteConsumer.favoriteModel.length,
                     itemBuilder: (context, index) {
                       return AnimatedSwitcher(
                           duration: const Duration(milliseconds: 300),
@@ -132,8 +133,10 @@ class _FavouriteState extends State<Favourite> {
                               : Padding(
                                   padding: const EdgeInsets.only(right: 20),
                                   child: FavoriteCard(
-                                    stadium:
-                                        favoriteConsumer.staduimModel[index],
+                                      stadium: favoriteConsumer
+                                        .favoriteModel[index]
+                                        .favoritable as StadiumsModel,
+
                                   ),
                                 ));
                     },

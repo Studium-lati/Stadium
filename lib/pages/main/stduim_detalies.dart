@@ -68,25 +68,34 @@ class _StadiumDetailsCardState extends State<StadiumDetailsCard> {
                 child: CircleAvatar(
                   backgroundColor: Colors.white,
                   child: IconButton(
-                    icon: Icon(favoriteConsumer.favoriteModel.any((favorite) =>
-                            favorite.stadiumId.toString() ==
-                            widget.stadium.id.toString())
-                        ? Icons.bookmark_outlined
-                        : Icons.bookmark_border),
-                    onPressed: () {
-                      setState(() {
-                        favoriteConsumer.addFavorite({
-                          "stadium_id": widget.stadium.id.toString(),
-                        }).then((updateed) {
-                          if (updateed) {
-                            setState(() {
-                              favoriteConsumer.getFavorite();
-                            });
-                          }
-                        });
-                      });
-                    },
-                  ),
+                      icon: Icon(
+                        favoriteConsumer.favoriteModel.any((favorite) =>
+                                favorite.favoritableType == 'Stadium' &&
+                                favorite.favoritableId == widget.stadium.id)
+                            ? Icons.bookmark
+                            : Icons.bookmark_border,
+                      ),
+                      onPressed: () async {
+                        final isFavorited = favoriteConsumer.favoriteModel.any(
+                            (favorite) =>
+                                favorite.favoritableType == 'Stadium' &&
+                                favorite.favoritableId == widget.stadium.id);
+
+                        bool success;
+                        if (isFavorited) {
+                          success = await favoriteConsumer
+                              .unfavoriteStadium(widget.stadium.id);
+                        } else {
+                          success = await favoriteConsumer
+                              .favoriteStadium(widget.stadium.id);
+                        }
+
+                        if (success) {
+                          await favoriteConsumer.getFavorite();
+                          setState(() {}); // Trigger UI update
+                        }
+                      },
+                    )
                 ),
               ),
               Align(

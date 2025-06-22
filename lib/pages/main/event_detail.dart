@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// Remove this import: import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:stadium/helper/const.dart';
 import 'package:stadium/helper/function_helper.dart';
@@ -30,50 +30,38 @@ class EventDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Event image with error handling
-                    Container(
+                    Image.network(
+                      event.image,
                       height: getScreenSize(context).height * 0.45,
                       width: double.infinity,
-                      color: Colors.blue.shade100,
-                      child: Image.network(
-                        event.image,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.blue.shade200,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.event,
-                                    size: 60,
-                                    color: Colors.white,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          height: getScreenSize(context).height * 0.45,
+                          width: double.infinity,
+                          color: Colors.blue[100],
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.event,
+                                  size: 60,
+                                  color: Colors.blue[300],
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  'No Image Available',
+                                  style: TextStyle(
+                                    color: Colors.blue[300],
+                                    fontSize: 16,
                                   ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    'No Image Available',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return Center(
-                            child: CircularProgressIndicator(
-                              value: loadingProgress.expectedTotalBytes != null
-                                  ? loadingProgress.cumulativeBytesLoaded /
-                                      loadingProgress.expectedTotalBytes!
-                                  : null,
-                            ),
-                          );
-                        },
-                      ),
+                          ),
+                        );
+                      },
                     ),
                     SizedBox(height: 70),
                     const Padding(
@@ -94,63 +82,184 @@ class EventDetailPage extends StatelessWidget {
                       ),
                     ),
                     if (stadium != null) ...[
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
+                      const Padding(
+                        padding: EdgeInsets.all(16.0),
                         child: Text(
-                          'Stadium Location',
+                          'Venue & Location',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
+                      // Location Card instead of Google Map
                       Container(
-                        height: 200,
                         margin: EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.all(16),
                         decoration: BoxDecoration(
+                          color: Colors.blue[50],
                           borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: Colors.grey[300]!),
+                          border: Border.all(color: Colors.blue[200]!),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(15),
-                          child: GoogleMap(
-                            initialCameraPosition: CameraPosition(
-                              target: LatLng(
-                                stadium.latitude is double
-                                    ? stadium.latitude
-                                    : double.tryParse(stadium.latitude.toString()) ?? 0.0,
-                                stadium.longitude is double
-                                    ? stadium.longitude
-                                    : double.tryParse(stadium.longitude.toString()) ?? 0.0,
-                              ),
-                              zoom: 15,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue[100],
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Icon(
+                                    Icons.stadium,
+                                    color: Colors.blue[700],
+                                    size: 24,
+                                  ),
+                                ),
+                                SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        stadium.name,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.location_on,
+                                            size: 16,
+                                            color: Colors.blue[600],
+                                          ),
+                                          SizedBox(width: 4),
+                                          Expanded(
+                                            child: Text(
+                                              stadium.location,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey[700],
+                                              ),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            markers: {
-                              Marker(
-                                markerId: MarkerId(stadium.id.toString()),
-                                position: LatLng(
-                                  stadium.latitude is double
-                                      ? stadium.latitude
-                                      : double.tryParse(stadium.latitude.toString()) ?? 0.0,
-                                  stadium.longitude is double
-                                      ? stadium.longitude
-                                      : double.tryParse(stadium.longitude.toString()) ?? 0.0,
-                                ),
-                                infoWindow: InfoWindow(
-                                  title: stadium.name,
-                                  snippet: stadium.location,
-                                ),
+                            SizedBox(height: 12),
+                            Container(
+                              padding: EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            },
-                          ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Capacity',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '${stadium.capacity ?? 'N/A'}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blue[700],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    width: 1,
+                                    color: Colors.grey[300],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Price/Hour',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        '\$${stadium.pricePerHour ?? 'N/A'}',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green[700],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    width: 1,
+                                    color: Colors.grey[300],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'Rating',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.star,
+                                            size: 16,
+                                            color: Colors.amber,
+                                          ),
+                                          SizedBox(width: 2),
+                                          Text(
+                                            '${stadium.rating ?? 'N/A'}',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black87,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                     SizedBox(height: 30),
                   ],
                 ),
-                // Event info card
+                // Event info card overlay
                 Positioned(
                   top: getScreenSize(context).height * 0.35,
                   left: 20,
@@ -181,25 +290,6 @@ class EventDetailPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        if (stadium != null) ...[
-                          Row(
-                            children: [
-                              Icon(Icons.location_on,
-                                  color: Colors.grey[600], size: 20),
-                              SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  stadium.location,
-                                  style: TextStyle(
-                                      color: Colors.grey[600], fontSize: 14),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                        ],
                         Row(
                           children: [
                             Icon(Icons.calendar_today,
@@ -216,16 +306,27 @@ class EventDetailPage extends StatelessWidget {
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              Icon(Icons.stadium,
-                                  color: Colors.grey[600], size: 20),
+                              Icon(Icons.event_available,
+                                  color: Colors.green[600], size: 20),
                               SizedBox(width: 8),
-                              Expanded(
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: event.status == 'active'
+                                      ? Colors.green[50]
+                                      : Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                                 child: Text(
-                                  stadium.name,
+                                  event.status.toUpperCase(),
                                   style: TextStyle(
-                                      color: Colors.grey[600], fontSize: 14),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                    color: event.status == 'active'
+                                        ? Colors.green[700]
+                                        : Colors.grey[600],
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ],

@@ -38,13 +38,12 @@ class Api {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
-    final response = await http.post(Uri.parse(BASE_URL + url),
-        headers: {
-          "Accept": 'application/json',
-          "Authorization": "Bearer $token"
-        },
-        body: body);
-
+    final response = await http.post(
+      Uri.parse(BASE_URL + url),
+      headers: {"Accept": 'application/json', "Authorization": "Bearer $token"},
+      body: body.isNotEmpty ? body : null, // Handle empty body
+    );
+    
     if (kDebugMode) {
       print("Body: ${jsonEncode(body)}");
       print('POST $url');
