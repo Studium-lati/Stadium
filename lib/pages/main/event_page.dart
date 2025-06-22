@@ -23,7 +23,7 @@ class _EventPageState extends State<EventPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<EventProvider>(context, listen: false).getEvent();
+    Provider.of<EventProvider>(context, listen: false).getEvent(context);
   }
 
   TextEditingController searchController = TextEditingController();

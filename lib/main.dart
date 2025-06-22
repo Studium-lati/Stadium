@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AuthenProvider()),
         ChangeNotifierProvider(create: (context) => StaduimProvider()),
         ChangeNotifierProvider(
-            create: (context) => EventProvider()..getEvent()),
+            create: (context) => EventProvider()..getEvent(context)),
         ChangeNotifierProvider(
             create: (context) => ReservationsProvider()..fetchReservations()),
         ChangeNotifierProvider(create: (context) => FavoriteProvider()),

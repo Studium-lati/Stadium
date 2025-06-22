@@ -1,26 +1,31 @@
 import 'dart:convert';
 
+import 'package:stadium/models/image_model.dart';
+import 'package:stadium/models/staduim_model.dart';
+import 'package:stadium/models/user_model.dart';
+
 class EventModel {
   int id;
+  int? get stadiumId => stadium?.id;
   String name;
-  String description;
-  String date;
-  String image;
+  String? description;
+  String? date; 
+  List<ImageModel> images; 
   String status;
-  int stadiumId;
-  int userId;
+  StadiumsModel? stadium; 
+  UserModel? user; 
   DateTime createdAt;
   DateTime updatedAt;
 
   EventModel({
     required this.id,
     required this.name,
-    required this.description,
-    required this.date,
-    required this.image,
+    this.description,
+    this.date,
+    required this.images,
     required this.status,
-    required this.stadiumId,
-    required this.userId,
+    this.stadium,
+    this.user,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -35,10 +40,15 @@ class EventModel {
         name: json["name"],
         description: json["description"],
         date: json["date"],
-        image: json["image"],
+        images: (json["images"] as List<dynamic>?)
+                ?.map((x) => ImageModel.fromJson(x))
+                .toList() ??
+            [],
         status: json["status"],
-        stadiumId: json["stadium_id"],
-        userId: json["user_id"],
+        stadium: json["stadium"] != null
+            ? StadiumsModel.fromJson(json["stadium"])
+            : null,
+        user: json["user"] != null ? UserModel.fromJson(json["user"]) : null,
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -48,10 +58,10 @@ class EventModel {
         "name": name,
         "description": description,
         "date": date,
-        "image": image,
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
         "status": status,
-        "stadium_id": stadiumId,
-        "user_id": userId,
+        "stadium": stadium?.toJson(),
+        "user": user?.toJson(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

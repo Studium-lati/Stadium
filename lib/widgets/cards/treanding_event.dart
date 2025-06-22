@@ -13,81 +13,75 @@ class TreandingEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<StaduimProvider>(
-      builder: (context, staduimConsumer, child) {
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => EventDetailPage(
-                          event: event,
-                        )));
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.blue,
-              image: DecorationImage(
-                  image: Image.network(event.image,
-                      errorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      'assets/308ef14d-4473-4eb3-8ab3-26c1db6b8c26.jpeg',
-                      fit: BoxFit.cover,
-                    );
-                  }).image,
-                  fit: BoxFit.fill),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.black26,
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(20)),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            event.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Icon(IconlyBold.location, color: Colors.blue[800]),
-                          SizedBox(width: 10),
-                          Text(
-                              staduimConsumer.stadiums
-                                  .where((stadium) =>
-                                      stadium.id == event.stadiumId)
-                                  .first
-                                  .location,
-                              style: TextStyle(
-                                color: Colors.white,
-                              )),
-                        ],
-                      ),
-                      SizedBox(height: 15),
-                    ],
-                  ),
-                ),
-              ],
+        builder: (context, staduimConsumer, child) {
+      // Find matching stadium or use null
+      final matchingStadiums = staduimConsumer.stadiums
+          .where((stadium) => stadium.id == event.stadium?.id)
+          .toList();
+
+      final stadium =
+          matchingStadiums.isNotEmpty ? matchingStadiums.first : null;
+
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EventDetailPage(
+                        event: event,
+                      )));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              image: event.images.isNotEmpty
+                  ? NetworkImage(event.images.first.url)
+                  : const AssetImage('assets/placeholder.png') as ImageProvider,
+              fit: BoxFit.cover,
             ),
           ),
-        );
-      },
-    );
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  color: Colors.black26,
+                  borderRadius:
+                      BorderRadius.vertical(bottom: Radius.circular(10)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      event.name,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Icon(IconlyBold.location, color: Colors.blue[800]),
+                        const SizedBox(width: 10),
+                        Text(
+                          stadium?.location ?? 'Location not available',
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 }

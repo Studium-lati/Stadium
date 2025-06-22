@@ -15,7 +15,7 @@ class StadiumsModel {
   String capacity;
   double rating;
   String status;
-  UserModel user;
+  UserModel? user; 
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -31,7 +31,7 @@ class StadiumsModel {
     required this.capacity,
     required this.rating,
     required this.status,
-    required this.user,
+    this.user, 
     required this.createdAt,
     required this.updatedAt,
   });
@@ -48,13 +48,13 @@ class StadiumsModel {
         images: List<ImageModel>.from(
             json["images"].map((x) => ImageModel.fromJson(x))),
         location: json["location"],
-        latitude: (json["latitude"] as num).toDouble(),
-        longitude: (json["longitude"] as num).toDouble(),
+        latitude: _parseDouble(json["latitude"]),
+        longitude: _parseDouble(json["longitude"]),
         pricePerHour: json["price_per_hour"],
         capacity: json["capacity"],
-        rating: (json["rating"] as num).toDouble(),
+        rating: _parseDouble(json["rating"]),
         status: json["status"],
-        user: UserModel.fromJson(json["user"]),
+        user: json["user"] != null ? UserModel.fromJson(json["user"]) : null,
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -71,8 +71,14 @@ class StadiumsModel {
         "capacity": capacity,
         "rating": rating,
         "status": status,
-        "user": user.toJson(),
+        "user": user?.toJson(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
+
+  static double _parseDouble(dynamic value) {
+    if (value is num) return value.toDouble();
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return 0.0;
+  }
 }

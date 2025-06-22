@@ -23,11 +23,10 @@ class FavoriteEventCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0xD3F8F9FA),
+          color: const Color(0xD3F8F9FA),
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 1,
               blurRadius: 7,
@@ -44,71 +43,64 @@ class FavoriteEventCard extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  image: NetworkImage(
-                    event.image,
-                  ),
+                  image: event.images.isNotEmpty
+                      ? NetworkImage(event.images.first.url)
+                      : const AssetImage('assets/placeholder.png')
+                          as ImageProvider,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             const SizedBox(width: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  event.name,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    event.name,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    Icon(
-                      IconlyBold.location,
-                      color: Colors.blue[800],
-                      size: 18,
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      event.date,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
+                  const SizedBox(height: 5),
+                  Row(
+                    children: [
+                      Icon(
+                        IconlyBold.calendar,
+                        color: Colors.blue[800],
+                        size: 18,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Row(
-                  // mainAxisAlignment:
-                  //     MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          IconlyBold.star,
-                          color: Colors.yellow[800],
-                          size: 18,
+                      const SizedBox(width: 5),
+                      Text(
+                        event.date ?? 'Date not available',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.grey,
                         ),
-                        const SizedBox(width: 5),
-                        Text(
-                          event.status,
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    children: [
+                      Icon(
+                        IconlyBold.star,
+                        color: Colors.yellow[800],
+                        size: 18,
+                      ),
+                      const SizedBox(width: 5),
+                      Text(
+                        event.status,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: getScreenSize(context).width * 0.17,
-                    ),
-                  ],
-                ),
-              ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),

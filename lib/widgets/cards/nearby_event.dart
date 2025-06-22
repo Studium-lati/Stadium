@@ -28,7 +28,9 @@ class NearbyEvent extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             color: Colors.blue,
             image: DecorationImage(
-              image: NetworkImage(event.image),
+              image: event.images.isNotEmpty
+                  ? NetworkImage(event.images.first.url)
+                  : const AssetImage('assets/placeholder.png') as ImageProvider,
               fit: BoxFit.fill,
             ),
           ),
@@ -36,8 +38,8 @@ class NearbyEvent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
                   color: Colors.black26,
                   borderRadius:
                       BorderRadius.vertical(bottom: Radius.circular(20)),
@@ -50,7 +52,7 @@ class NearbyEvent extends StatelessWidget {
                       children: [
                         Text(
                           event.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -58,20 +60,17 @@ class NearbyEvent extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         Icon(IconlyBold.location, color: Colors.blue[800]),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Text(
-                            staduimConsumer.stadiums
-                                .where(
-                                    (stadium) => stadium.id == event.stadiumId)
-                                .first
-                                .location,
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
+                          event.stadium?.location ?? 'Location not available',
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
                     ),
                   ],

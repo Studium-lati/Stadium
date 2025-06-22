@@ -24,7 +24,9 @@ class EventDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
-                      event.image,
+                      event.images.isNotEmpty
+                          ? event.images.first.url
+                          : 'assets/placeholder.png',
                       height: getScreenSize(context).height * 0.45,
                       width: double.infinity,
                       fit: BoxFit.fill,
@@ -45,7 +47,7 @@ class EventDetailPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
-                        event.description,
+                        event.description ?? 'No description available',
                         style: TextStyle(fontSize: 12),
                       ),
                     ),
@@ -135,7 +137,8 @@ class EventDetailPage extends StatelessWidget {
                               Text(
                                 staduimConsumer.stadiums
                                     .where((stadium) =>
-                                        stadium.id == event.stadiumId)
+                                        stadium.id == event.stadium?.id
+                                        )
                                     .first
                                     .location,
                                 style:
@@ -149,7 +152,7 @@ class EventDetailPage extends StatelessWidget {
                               Icon(Icons.calendar_today, color: grayColor),
                               SizedBox(width: 8),
                               Text(
-                                event.date,
+                                event.date ?? 'Date not available',
                                 style:
                                     TextStyle(color: grayColor, fontSize: 12),
                               ),
