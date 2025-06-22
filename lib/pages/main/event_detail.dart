@@ -14,6 +14,12 @@ class EventDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<StaduimProvider>(
         builder: (context, staduimConsumer, child) {
+      // Find matching stadium safely
+      final matchingStadiums = staduimConsumer.stadiums
+          .where((stadium) => stadium.id == event.stadiumId);
+      final stadium =
+          matchingStadiums.isNotEmpty ? matchingStadiums.first : null;
+
       return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -23,17 +29,53 @@ class EventDetailPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.network(
-                      event.images.isNotEmpty
-                          ? event.images.first.url
-                          : 'assets/placeholder.png',
+                    // Event image with error handling
+                    Container(
                       height: getScreenSize(context).height * 0.45,
                       width: double.infinity,
-                      fit: BoxFit.fill,
+                      color: Colors.blue.shade100,
+                      child: Image.network(
+                        event.image,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            color: Colors.blue.shade200,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.event,
+                                    size: 60,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    'No Image Available',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                    SizedBox(
-                      height: 70,
-                    ),
+                    SizedBox(height: 70),
                     const Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Text(
@@ -47,129 +89,160 @@ class EventDetailPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
-                        event.description ?? 'No description available',
-                        style: TextStyle(fontSize: 12),
+                        event.description,
+                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                       ),
                     ),
-                    Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              'Venue & Location',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                    if (stadium != null) ...[
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Stadium Location',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: SizedBox(
-                              height: getScreenSize(context).height * 0.25,
-                              width: getScreenSize(context).width * 8,
-                              child: GoogleMap(
-                                mapType: MapType.normal,
-                                initialCameraPosition: const CameraPosition(
-                                  target: LatLng(37.7749, -122.4194),
-                                  zoom: 12,
-                                ),
-                                markers: {
-                                  const Marker(
-                                    markerId: MarkerId('stadium'),
-                                    position: LatLng(37.7749, -122.4194),
-                                    infoWindow:
-                                        InfoWindow(title: 'tot   Stadium'),
-                                  ),
-                                },
+                      ),
+                      Container(
+                        height: 200,
+                        margin: EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: Colors.grey[300]!),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: GoogleMap(
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(
+                                stadium.latitude is double
+                                    ? stadium.latitude
+                                    : double.tryParse(stadium.latitude.toString()) ?? 0.0,
+                                stadium.longitude is double
+                                    ? stadium.longitude
+                                    : double.tryParse(stadium.longitude.toString()) ?? 0.0,
                               ),
+                              zoom: 15,
                             ),
+                            markers: {
+                              Marker(
+                                markerId: MarkerId(stadium.id.toString()),
+                                position: LatLng(
+                                  stadium.latitude is double
+                                      ? stadium.latitude
+                                      : double.tryParse(stadium.latitude.toString()) ?? 0.0,
+                                  stadium.longitude is double
+                                      ? stadium.longitude
+                                      : double.tryParse(stadium.longitude.toString()) ?? 0.0,
+                                ),
+                                infoWindow: InfoWindow(
+                                  title: stadium.name,
+                                  snippet: stadium.location,
+                                ),
+                              ),
+                            },
                           ),
+                        ),
+                      ),
+                    ],
+                    SizedBox(height: 30),
+                  ],
+                ),
+                // Event info card
+                Positioned(
+                  top: getScreenSize(context).height * 0.35,
+                  left: 20,
+                  right: 20,
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
                         ),
                       ],
                     ),
-                  ],
-                ),
-                Positioned(
-                  top: getScreenSize(context).height * 0.35,
-                  left: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Container(
-                      width: getScreenSize(context).width * 0.3,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          event.name,
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 2,
-                              offset: Offset(0, 1),
-                            ),
-                          ]),
-                      padding: const EdgeInsets.all(26.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'League : ${event.name}',
-                            style: TextStyle(
-                              color: primaryColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
+                        ),
+                        const SizedBox(height: 12),
+                        if (stadium != null) ...[
                           Row(
                             children: [
-                              Icon(Icons.location_on, color: grayColor),
+                              Icon(Icons.location_on,
+                                  color: Colors.grey[600], size: 20),
                               SizedBox(width: 8),
-                              Text(
-                                staduimConsumer.stadiums
-                                    .where((stadium) =>
-                                        stadium.id == event.stadium?.id
-                                        )
-                                    .first
-                                    .location,
-                                style:
-                                    TextStyle(color: grayColor, fontSize: 12),
+                              Expanded(
+                                child: Text(
+                                  stadium.location,
+                                  style: TextStyle(
+                                      color: Colors.grey[600], fontSize: 14),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: 8),
+                        ],
+                        Row(
+                          children: [
+                            Icon(Icons.calendar_today,
+                                color: Colors.grey[600], size: 20),
+                            SizedBox(width: 8),
+                            Text(
+                              event.date,
+                              style: TextStyle(
+                                  color: Colors.grey[600], fontSize: 14),
+                            ),
+                          ],
+                        ),
+                        if (stadium != null) ...[
+                          const SizedBox(height: 8),
                           Row(
                             children: [
-                              Icon(Icons.calendar_today, color: grayColor),
+                              Icon(Icons.stadium,
+                                  color: Colors.grey[600], size: 20),
                               SizedBox(width: 8),
-                              Text(
-                                event.date ?? 'Date not available',
-                                style:
-                                    TextStyle(color: grayColor, fontSize: 12),
+                              Expanded(
+                                child: Text(
+                                  stadium.name,
+                                  style: TextStyle(
+                                      color: Colors.grey[600], fontSize: 14),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
                         ],
-                      ),
+                      ],
                     ),
                   ),
                 ),
+                // Back button
                 Positioned(
                   top: 40,
                   left: 20,
                   child: CircleAvatar(
-                    backgroundColor: Colors.white54,
+                    backgroundColor: Colors.white.withOpacity(0.9),
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: Icon(Icons.arrow_back, color: Colors.black),
                       onPressed: () {
                         Navigator.pop(context);
                       },
