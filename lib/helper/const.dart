@@ -6,4 +6,4 @@ Color secondaryColor = const Color(0xFF1A7431);
 Color grayColor = const Color(0xFFBBEBEBE);
 
 // ignore: constant_identifier_names
-const String BASE_URL = "https://pigeon-wanted-wildcat.ngrok-free.app/api/";
+const String BASE_URL = "http://127.0.0.1:8000/api/";
